@@ -39,3 +39,15 @@ class CustomerDetailSerializer(serializers.ModelSerializer):
         model = models.Customer
         fields= ['id','user','mobile']
         # depth = 1
+        
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Order
+        fields= ['id', 'customer']
+        depth = 1
+        
+class OrderItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.OrderItem
+        fields= ['id','order','product']
+        depth = 1

@@ -47,6 +47,9 @@ class Customer(models.Model):
 class Order(models.Model):
     customer = models.ForeignKey(Customer , on_delete=models.CASCADE)
     Order_time= models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return ('order of ' +  self.customer.user.username)
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order , on_delete=models.CASCADE,related_name = 'order_items')
