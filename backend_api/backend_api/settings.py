@@ -133,7 +133,7 @@ REST_FRAMEWORK = {
         ],
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     # 'PAGE_SIZE': 1
-     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+     'DEFAULT_PAGINATION_CLASS': 'main.pagination.CustomPagination',
     'PAGE_SIZE': 1
     
 }
