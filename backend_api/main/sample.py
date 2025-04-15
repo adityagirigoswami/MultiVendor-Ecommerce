@@ -1,1 +1,0 @@
-# it contain sample py for few modification regarding backend guide

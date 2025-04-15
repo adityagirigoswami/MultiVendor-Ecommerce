@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from . import serializers
-from rest_framework import generics ,permissions , pagination
+from rest_framework import generics ,permissions , pagination ,viewsets
 from . import models
 from . import urls
 
@@ -51,3 +51,7 @@ class OrderItem(generics.RetrieveUpdateDestroyAPIView):
         order=models.Order.objects.get(id=order_id)
         order_item= models.OrderItem.objects.filter(order=order)
         return order_item
+    
+class CustomerAddressViewset(viewsets.ModelViewSet):
+    queryset = models.CustomerAddress.objects.all()
+    serializer_class = serializers.CustomerAddressSerializer
