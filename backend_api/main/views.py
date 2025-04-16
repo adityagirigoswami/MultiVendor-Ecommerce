@@ -55,3 +55,8 @@ class OrderItem(generics.RetrieveUpdateDestroyAPIView):
 class CustomerAddressViewset(viewsets.ModelViewSet):
     queryset = models.CustomerAddress.objects.all()
     serializer_class = serializers.CustomerAddressSerializer
+    
+    
+class ProductRatingViewset(viewsets.ModelViewSet):
+    queryset = models.ProductRating.objects.all()
+    serializer_class = serializers.ProductRatingSerializer

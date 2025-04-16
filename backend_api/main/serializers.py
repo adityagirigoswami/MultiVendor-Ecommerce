@@ -57,3 +57,10 @@ class CustomerAddressSerializer(serializers.ModelSerializer):
         model = models.CustomerAddress
         fields= ['id','customer','address', 'default_address']
         depth = 1
+        
+
+class ProductRatingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.ProductRating
+        fields= ['id','customer','product', 'rating' , 'reviews' , 'add_time']
+        depth = 1
