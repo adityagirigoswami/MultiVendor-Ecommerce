@@ -1,3 +1,24 @@
+// import React from 'react';
+// import './App.css';
+// import 'tailwindcss/tailwind.css';
+// import Navbar from './navbar';
+
+// function App() {
+//   return (
+//     <div className="min-h-screen bg-gray-100">
+//       <Navbar />
+//       <div className="p-6">
+//         <h1 className="text-3xl font-bold">Welcome to the Sample App!</h1>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+
+
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
