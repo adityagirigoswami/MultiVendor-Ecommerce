@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import logo from "../logo.svg";
 import "../App.css";
+import Singleproduct from './singleproduct';
 
 
 function Home() {
@@ -16,207 +17,14 @@ function Home() {
               <i className="fa-solid fa-arrow-right-long ms-1"></i></Link>
           </h3>
           <div className="row mb-4">
-
-            {/* produt box */}
-            <div className="col-12 col-md-3 mb-4">
-              <div className="card" style={{ width: "18rem" }}>
-                <img className="card-img-top" src={logo} alt="Card cap" />
-                <div className="card-body">
-                  <h4 className="card-title">Product title</h4>
-                  <h5 className="card-title text-muted">Price: Rs.500</h5>
-                </div>
-                <div className="card-footer">
-                  <button
-                    title="add to cart"
-                    className="btn btn-success btn-sm"
-                  >
-                    <i className="fa-solid fa-cart-plus fa-2x"></i>
-                  </button>
-                  <button
-                    title="Add to Wishlist"
-                    className="btn btn-danger btn-sm ms-1"
-                  >
-                    <i className="fa-solid fa-heart fa-2x"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            {/* produt box end */}
-            {/* produt box */}
-            <div className="col-12 col-md-3 mb-4">
-              <div className="card" style={{ width: "18rem" }}>
-                <img className="card-img-top" src={logo} alt="Card cap" />
-                <div className="card-body">
-                  <h4 className="card-title">Product title</h4>
-                  <h5 className="card-title text-muted">Price: Rs.500</h5>
-                </div>
-                <div className="card-footer">
-                  <button
-                    title="add to cart"
-                    className="btn btn-success btn-sm"
-                  >
-                    <i className="fa-solid fa-cart-plus fa-2x"></i>
-                  </button>
-                  <button
-                    title="Add to Wishlist"
-                    className="btn btn-danger btn-sm ms-1"
-                  >
-                    <i className="fa-solid fa-heart fa-2x"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            {/* produt box end */}
-            {/* produt box */}
-            <div className="col-12 col-md-3 mb-4">
-              <div className="card" style={{ width: "18rem" }}>
-                <img className="card-img-top" src={logo} alt="Card cap" />
-                <div className="card-body">
-                  <h4 className="card-title">Product title</h4>
-                  <h5 className="card-title text-muted">Price: Rs.500</h5>
-                </div>
-                <div className="card-footer">
-                  <button
-                    title="add to cart"
-                    className="btn btn-success btn-sm"
-                  >
-                    <i className="fa-solid fa-cart-plus fa-2x"></i>
-                  </button>
-                  <button
-                    title="Add to Wishlist"
-                    className="btn btn-danger btn-sm ms-1"
-                  >
-                    <i className="fa-solid fa-heart fa-2x"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            {/* produt box end */}
-            {/* produt box */}
-            <div className="col-12 col-md-3 mb-4">
-              <div className="card" style={{ width: "18rem" }}>
-                <img className="card-img-top" src={logo} alt="Card cap" />
-                <div className="card-body">
-                  <h4 className="card-title">Product title</h4>
-                  <h5 className="card-title text-muted">Price: Rs.500</h5>
-                </div>
-                <div className="card-footer">
-                  <button
-                    title="add to cart"
-                    className="btn btn-success btn-sm"
-                  >
-                    <i className="fa-solid fa-cart-plus fa-2x"></i>
-                  </button>
-                  <button
-                    title="Add to Wishlist"
-                    className="btn btn-danger btn-sm ms-1"
-                  >
-                    <i className="fa-solid fa-heart fa-2x"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            {/* produt box end */}
-            {/* produt box */}
-            <div className="col-12 col-md-3 mb-4">
-              <div className="card" style={{ width: "18rem" }}>
-                <img className="card-img-top" src={logo} alt="Card cap" />
-                <div className="card-body">
-                  <h4 className="card-title">Product title</h4>
-                  <h5 className="card-title text-muted">Price: Rs.500</h5>
-                </div>
-                <div className="card-footer">
-                  <button
-                    title="add to cart"
-                    className="btn btn-success btn-sm"
-                  >
-                    <i className="fa-solid fa-cart-plus fa-2x"></i>
-                  </button>
-                  <button
-                    title="Add to Wishlist"
-                    className="btn btn-danger btn-sm ms-1"
-                  >
-                    <i className="fa-solid fa-heart fa-2x"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            {/* produt box end */}
-            {/* produt box */}
-            <div className="col-12 col-md-3 mb-4">
-              <div className="card" style={{ width: "18rem" }}>
-                <img className="card-img-top" src={logo} alt="Card cap" />
-                <div className="card-body">
-                  <h4 className="card-title">Product title</h4>
-                  <h5 className="card-title text-muted">Price: Rs.500</h5>
-                </div>
-                <div className="card-footer">
-                  <button
-                    title="add to cart"
-                    className="btn btn-success btn-sm"
-                  >
-                    <i className="fa-solid fa-cart-plus fa-2x"></i>
-                  </button>
-                  <button
-                    title="Add to Wishlist"
-                    className="btn btn-danger btn-sm ms-1"
-                  >
-                    <i className="fa-solid fa-heart fa-2x"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            {/* produt box end */}
-            {/* produt box */}
-            <div className="col-12 col-md-3 mb-4">
-              <div className="card" style={{ width: "18rem" }}>
-                <img className="card-img-top" src={logo} alt="Card cap" />
-                <div className="card-body">
-                  <h4 className="card-title">Product title</h4>
-                  <h5 className="card-title text-muted">Price: Rs.500</h5>
-                </div>
-                <div className="card-footer">
-                  <button
-                    title="add to cart"
-                    className="btn btn-success btn-sm"
-                  >
-                    <i className="fa-solid fa-cart-plus fa-2x"></i>
-                  </button>
-                  <button
-                    title="Add to Wishlist"
-                    className="btn btn-danger btn-sm ms-1"
-                  >
-                    <i className="fa-solid fa-heart fa-2x"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            {/* produt box end */}
-            {/* produt box */}
-            <div className="col-12 col-md-3 mb-4">
-              <div className="card" style={{ width: "18rem" }}>
-                <img className="card-img-top" src={logo} alt="Card cap" />
-                <div className="card-body">
-                  <h4 className="card-title">Product title</h4>
-                  <h5 className="card-title text-muted">Price: Rs.500</h5>
-                </div>
-                <div className="card-footer">
-                  <button
-                    title="add to cart"
-                    className="btn btn-success btn-sm"
-                  >
-                    <i className="fa-solid fa-cart-plus fa-2x"></i>
-                  </button>
-                  <button
-                    title="Add to Wishlist"
-                    className="btn btn-danger btn-sm ms-1"
-                  >
-                    <i className="fa-solid fa-heart fa-2x"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            {/* produt box end */}
+          <Singleproduct title="python" />
+         <Singleproduct title="python" />
+        <Singleproduct title="java" />
+        <Singleproduct title="jonathon" />
+        <Singleproduct title="react" />
+        <Singleproduct title="react" />
+        <Singleproduct title="react" />
+        <Singleproduct title="react" />
           </div>
           {/* latest product end  */}
         </div>
