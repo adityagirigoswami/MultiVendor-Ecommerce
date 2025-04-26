@@ -8,6 +8,7 @@ import Footer from "./components/footer";
 import Home from "./components/home";
 import Categories from './components/categories';
 import ProductCategory from './components/productCategory';
+import AllProducts from './components/AllProducts';
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/categories' element={<Categories />} />
         <Route path='/categories/:slug/:id' element={<ProductCategory />} />
+        <Route path='/AllProducts' element={<AllProducts />} />
+
       </Routes>
       <Footer />
      

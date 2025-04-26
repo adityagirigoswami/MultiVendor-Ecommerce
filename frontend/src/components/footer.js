@@ -1,6 +1,6 @@
 function Footer() {
     return (
-<footer class="d-flex flex-wrap justify-content-between align-items-center mb-3 border-top p-3">
+<footer class="d-flex flex-wrap justify-content-between align-items-center mb-3 border-top p-3 mt-3">
             <div class="col-md-4 d-flex align-items-center m-3">
               <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1" aria-label="Bootstrap">
                 Python Market Place

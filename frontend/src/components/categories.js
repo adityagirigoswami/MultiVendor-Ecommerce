@@ -32,8 +32,8 @@ function Categories() {
                               <div className="card" style={{ width: "18rem" }}>
                                 <img className="card-img-top" src={logo} alt="Card cap" />
                                 <div className="card-body">
-                                  <h4 className="card-title">Product Category</h4>
-                                  <div className="card-footer">
+                                <Link to="/categories/python/1"><h4 className="card-title">Python</h4></Link>
+                                <div className="card-footer">
                                     product download : 598
                                   </div>
                                 </div>
@@ -46,8 +46,8 @@ function Categories() {
                               <div className="card" style={{ width: "18rem" }}>
                                 <img className="card-img-top" src={logo} alt="Card cap" />
                                 <div className="card-body">
-                                  <h4 className="card-title">Product Category</h4>
-                                  <div className="card-footer">
+                                <Link to="/categories/python/1"><h4 className="card-title">Python</h4></Link>
+                                <div className="card-footer">
                                     product download : 598
                                   </div>
                                 </div>
@@ -60,8 +60,8 @@ function Categories() {
                               <div className="card" style={{ width: "18rem" }}>
                                 <img className="card-img-top" src={logo} alt="Card cap" />
                                 <div className="card-body">
-                                  <h4 className="card-title">Product Category</h4>
-                                  <div className="card-footer">
+                                <Link to="/categories/java/2"><h4 className="card-title">Python</h4></Link>
+                                <div className="card-footer">
                                     product download : 598
                                   </div>
                                 </div>

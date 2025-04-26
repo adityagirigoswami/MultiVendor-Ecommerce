@@ -1,23 +1,22 @@
 import Singleproduct from './singleproduct';
 
-function ProductCategory(){
-    return(  
-             <div className="container">
+function AllProducts() {
+    return (
+<div className="container">
                               <h3 className="fw-bold mb-4">
-                                Python Products 
+                                All Products 
                               </h3>
                               <div className="row mb-4">
                                         <Singleproduct title="python"/>                                        <Singleproduct title="python"/>
                                         <Singleproduct title="java"/>
-                                        <Singleproduct title="jonathon"/>
-
+                                        <Singleproduct title="c++"/>
                                         <Singleproduct title="react"/>
+                                        <Singleproduct title="node"/>
                               </div>
                               {/* latest product end  */}
                             </div>
-    )
 
-        
+    );
 }
 
-export default ProductCategory;
+export default AllProducts;

@@ -14,7 +14,9 @@ function Header(){
                       height="30"
                       className="me-2"
                     />
-                    <span className="fw-bold text-info fs-4">Python Market Place</span>
+   <Link to="/" style={{ textDecoration: 'none' }}>
+  <span className="fw-bold text-info fs-4">Python Market Place</span>
+</Link>
                   </a>
         
                   <button

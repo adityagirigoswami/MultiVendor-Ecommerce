@@ -1,12 +1,12 @@
 import logo from "../logo.svg";
 
-function Singleproduct() {
+function Singleproduct(props) {
   return (
     <div className="col-12 col-md-3 mb-4">
                                   <div className="card" style={{ width: "18rem" }}>
                                     <img className="card-img-top" src={logo} alt="Card cap" />
                                     <div className="card-body">
-                                      <h4 className="card-title">Product title</h4>
+                                      <h4 className="card-title">{props.title}</h4>
                                       <h5 className="card-title text-muted">Price: Rs.500</h5>
                                     </div>
                                     <div className="card-footer">
