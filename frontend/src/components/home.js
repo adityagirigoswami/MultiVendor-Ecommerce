@@ -219,6 +219,7 @@ function Home() {
         </div>
 
         {/* customer rating and reviews */}
+   
         <div id="carouselExampleIndicators" className="carousel slide mb-5 container bg-dark text-white p-5">
           <div className="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
@@ -232,9 +233,9 @@ function Home() {
                   <p>A well-known quote, contained in a blockquote element.</p>
                 </blockquote>
                 <figcaption className="blockquote-footer">
-                  <i class="fa-solid fa-star text-warning"></i>
-                  <i class="fa-solid fa-star text-warning"></i>
-                  <i class="fa-solid fa-star text-warning"></i><cite title="Source Title">Source Title</cite>
+                  <i className="fa-solid fa-star text-warning"></i>
+                  <i className="fa-solid fa-star text-warning"></i>
+                  <i className="fa-solid fa-star text-warning"></i><cite title="Source Title">Source Title</cite>
                 </figcaption>
               </figure>    </div>
             <div className="carousel-item">
@@ -274,9 +275,9 @@ function Home() {
         </div>
 
         <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
+          <ul className="pagination">
+            <li className="page-item">
+              <a className="page-link" href="#" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
                 <span class="sr-only">Previous</span>
               </a>
@@ -285,7 +286,7 @@ function Home() {
             <li class="page-item"><a class="page-link" href="#">2</a></li>
             <li class="page-item"><a class="page-link" href="#">3</a></li>
             <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
+              <a className="page-link" href="#" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
                 <span class="sr-only">Next</span>
               </a>
