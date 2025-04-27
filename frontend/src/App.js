@@ -13,6 +13,7 @@ import ProductDetail from './components/productdetail';
 import Checkout from './components/Checkout';
 import Register from './components/customer/Register';
 import Login from './components/customer/login';
+import Dashboard from './components/customer/dashboard';
 
 
 
@@ -31,12 +32,7 @@ function App() {
         <Route path='/checkout' element={<Checkout />} />
         <Route path='/customer/register' element={<Register />} />
         <Route path='/customer/login' element={<Login  />} />
-
-        
-
-
- 
-
+        <Route path='/customer/dashboard' element={<Dashboard />} />
       </Routes>
       <Footer />
      
