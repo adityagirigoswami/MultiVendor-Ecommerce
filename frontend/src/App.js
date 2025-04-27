@@ -11,6 +11,10 @@ import ProductCategory from './components/productCategory';
 import AllProducts from './components/AllProducts';
 import ProductDetail from './components/productdetail';
 import Checkout from './components/Checkout';
+import Register from './components/customer/Register';
+import Login from './components/customer/login';
+
+
 
 
 function App() {
@@ -25,6 +29,9 @@ function App() {
         <Route path='/categories/:categories_slug/:categories_id' element={<ProductCategory />} />
         <Route path='/product/:product_slug/:product_id' element={<ProductDetail />} />
         <Route path='/checkout' element={<Checkout />} />
+        <Route path='/customer/register' element={<Register />} />
+        <Route path='/customer/login' element={<Login  />} />
+
         
 
 
