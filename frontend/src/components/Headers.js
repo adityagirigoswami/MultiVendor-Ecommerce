@@ -44,9 +44,9 @@ function Header(){
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link fw-bold text-white" href="#">
-                          About
-                        </a>
+                      <Link className="nav-link fw-bold text-white" to="/checkout">
+                          My Cart (4)
+                        </Link>
                       </li>
                       <li className="nav-item">
                         <a className="nav-link fw-bold text-white" href="#">

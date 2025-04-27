@@ -8,7 +8,7 @@ function ProductDetail() {
       {/*ProductDetail BOX */}
       <div className="row">
         <div className="col-4">
-        {/* logo image carousel start */}
+          {/* logo image carousel start */}
 
           <div
             id="productdetailCarousel"
@@ -56,13 +56,13 @@ function ProductDetail() {
             </div>
 
             <button className="carousel-control-prev" type="button" data-bs-target="#productdetailCarousel" data-bs-slide="prev">
-    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span className="visually-hidden">Previous</span>
-  </button>
-  <button className="carousel-control-next" type="button" data-bs-target="#productdetailCarousel" data-bs-slide="next">
-    <span className="carousel-control-next-icon" aria-hidden="true"></span>
-    <span className="visually-hidden">Next</span>
-  </button>
+              <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span className="visually-hidden">Previous</span>
+            </button>
+            <button className="carousel-control-next" type="button" data-bs-target="#productdetailCarousel" data-bs-slide="next">
+              <span className="carousel-control-next-icon" aria-hidden="true"></span>
+              <span className="visually-hidden">Next</span>
+            </button>
           </div>
           {/* logo image carousel end */}
         </div>
