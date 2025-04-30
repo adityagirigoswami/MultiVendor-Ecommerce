@@ -10,8 +10,11 @@ import ProductCategory from './components/productCategory';
 import AllProducts from './components/AllProducts';
 import ProductDetail from './components/productdetail';
 import Checkout from './components/Checkout';
-import Register from './components/customer/Register';
+import OrderSuccess from './components/orderSuccess';
+import OrderFailure from './components/orderFailure';
+
 // {/* customer panel */}
+import Register from './components/customer/Register';
 import Login from './components/customer/login';
 import Dashboard from './components/customer/dashboard';
 import Orders from './components/customer/orders';
@@ -30,6 +33,8 @@ function App() {
         <Route path='/product/:product_slug/:product_id' element={<ProductDetail />} />
         <Route path='/checkout' element={<Checkout />} />
         <Route path='/customer/register' element={<Register />} />
+        <Route path='/order/success' element={<OrderSuccess />} />
+        <Route path='/order/failure' element={<OrderFailure />} />
 
         {/* customer panel */}
         <Route path='/customer/login' element={<Login  />} />
