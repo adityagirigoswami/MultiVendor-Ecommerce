@@ -11,14 +11,10 @@ import AllProducts from './components/AllProducts';
 import ProductDetail from './components/productdetail';
 import Checkout from './components/Checkout';
 import Register from './components/customer/Register';
-
-{/* customer panel */}
+// {/* customer panel */}
 import Login from './components/customer/login';
 import Dashboard from './components/customer/dashboard';
 import Orders from './components/customer/orders';
-
-
-
 
 function App() {
   
