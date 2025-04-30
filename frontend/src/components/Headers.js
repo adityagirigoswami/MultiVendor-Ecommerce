@@ -66,15 +66,28 @@ function Header() {
               Search
             </button>
           </form>
+          
           <div className="dropdown">
-                <button className="btn btn-outline-info fw-bold dropdown-toggle me-4" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  My Account
+                <button className="btn btn-outline-info fw-bold dropdown-toggle me-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                My Account
                 </button>
                 <ul className="dropdown-menu">
                   <li><Link className="dropdown-item" to="/customer/register" >Register</Link></li>
                   <li><Link className="dropdown-item" to="/customer/login" >Login</Link></li>
                   <li><hr className="dropdown-divider" /></li>
                   <li><Link className="dropdown-item" to="/customer/dashboard" >Dashboard</Link></li>
+                  <li><a className="dropdown-item text-danger" href="#">Logout</a></li>
+                </ul>
+          </div>
+          <div className="dropdown">
+                <button className="btn btn-outline-info fw-bold dropdown-toggle me-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Seller Panel
+                </button>
+                <ul className="dropdown-menu">
+                  <li><Link className="dropdown-item" to="/seller/register" >Register</Link></li>
+                  <li><Link className="dropdown-item" to="/seller/login" >Login</Link></li>
+                  <li><hr className="dropdown-divider" /></li>
+                  <li><Link className="dropdown-item" to="/seller/dashboard" >Dashboard</Link></li>
                   <li><a className="dropdown-item text-danger" href="#">Logout</a></li>
                 </ul>
           </div>
