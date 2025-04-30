@@ -18,6 +18,9 @@ import Register from './components/customer/Register';
 import Login from './components/customer/login';
 import Dashboard from './components/customer/dashboard';
 import Orders from './components/customer/orders';
+import Wishlist from './components/customer/wishlist';
+import Profile from './components/customer/profile';
+import ChangePassword from './components/customer/changepassword';
 
 function App() {
   
@@ -40,6 +43,9 @@ function App() {
         <Route path='/customer/login' element={<Login  />} />
         <Route path='/customer/dashboard' element={<Dashboard />} />
         <Route path='/customer/orders' element={<Orders />} />
+        <Route path='/customer/wishlist' element={<Wishlist />} />
+        <Route path='/customer/profile' element={<Profile />} />
+        <Route path='/customer/change-password' element={<ChangePassword />} />
       </Routes>
       <Footer />
      
