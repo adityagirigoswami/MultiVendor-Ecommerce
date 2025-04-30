@@ -1,9 +1,6 @@
-// import logo from "../logo.svg";
-// import { Link } from "react-router-dom";
-import Sidebar from "./sidebar";
-function Dashboard() {
-    return (
-      <div className="container mt-4">
+function Orders(){
+    return(
+        <div className="container mt-4">
           <div className="row">
               <div className="col-md-3 col-12 mb-2">
                     <Sidebar />
@@ -40,9 +37,5 @@ function Dashboard() {
               </div> 
           </div>
       </div>
-  
-  );
-  }
-  
-  export default Dashboard;
-  
+    );
+}
