@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Singleproduct(props) {
   return (
     <div className="col-12 col-md-3 mb-4">
-                                  <div className="card" style={{ width: "18rem" }}>
+                                  <div className="card shadow" style={{ width: "18rem" }}>
                                     <Link to="/product/python-timer/123"><img className="card-img-top" src={logo} alt="Card cap" /></Link>
                                     <div className="card-body">
                                     <Link to="/product/python-timer/123"><h4 className="card-title">{props.title}</h4></Link>

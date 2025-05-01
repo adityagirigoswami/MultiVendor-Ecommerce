@@ -28,6 +28,13 @@ import AddAddress from './components/customer/AddAddress';
 import SellerDashboard from './components/seller/SellerDashboard';
 import SellerLogin from './components/seller/SellerLogin';
 import SellerRegister from './components/seller/SellerRegister';
+import SellerProduct from './components/seller/SellerProduct';
+import SellerAddProducts from './components/seller/SellerAddProudct';
+import SellerOrders from './components/seller/SellerOrders';
+import SellerCustomer from './components/seller/SellerCustomer';
+import SellerReport from './components/seller/SellerReport';
+import SellerProfile from './components/seller/SellerProfile';
+import SellerChangePassword from './components/seller/SellerPassword';
 
 
 
@@ -62,6 +69,13 @@ function App() {
         <Route path='/seller/login' element={<SellerLogin  />} />
         <Route path='/seller/register' element={<SellerRegister/>} />
         <Route path='/seller/dashboard' element={<SellerDashboard />} />
+        <Route path='/seller/products' element={<SellerProduct />} />
+        <Route path='/seller/add-products' element={<SellerAddProducts />} />
+        <Route path='/seller/orders' element={<SellerOrders />} />
+        <Route path='/seller/customers' element={<SellerCustomer />} />
+        <Route path='/seller/reports' element={<SellerReport />} />
+        <Route path='/seller/profile' element={<SellerProfile />} />
+        <Route path='/seller/change-password' element={<SellerChangePassword />} />
         
       </Routes>
       <Footer />
