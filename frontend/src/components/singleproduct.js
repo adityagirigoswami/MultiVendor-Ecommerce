@@ -6,8 +6,8 @@ function Singleproduct(props) {
                                   <div className="card shadow" style={{ width: "18rem" }}>
                                     <Link to="/product/python-timer/123"><img className="card-img-top" src={logo} alt="Card cap" /></Link>
                                     <div className="card-body">
-                                    <Link to="/product/python-timer/123"><h4 className="card-title">{props.title}</h4></Link>
-                                      <h5 className="card-title text-muted">Price: Rs.500</h5>
+                                    <Link to="/product/python-timer/123"><h4 className="card-title">{props.product.title}</h4></Link>
+                                      <h5 className="card-title text-muted">Price Rs. {props.product.price}</h5>
                                     </div>
                                     <div className="card-footer">
                                       <button
