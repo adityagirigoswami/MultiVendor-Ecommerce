@@ -27,7 +27,9 @@ function AllProducts() {
   }
 
   var links=[];
-  for(let i = 1; i<=totalResult ; i++)
+  var limit = 1;
+  var totalLinks=totalResult/limit;
+  for(let i = 1; i<=totalLinks ; i++)
   {
     links.push(<li class="page-item"><Link onClick={()=>changeUrl(baseUrl+`/products/?page=${i}`)} to={`/products/?page=${i}`} class="page-link">{i}</Link></li>)
   }
