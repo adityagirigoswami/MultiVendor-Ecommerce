@@ -7,3 +7,10 @@
   color: #0dcaf0 !important;
   transition: color 0.3s;
 } */
+
+/* .card-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 200px;
+} */

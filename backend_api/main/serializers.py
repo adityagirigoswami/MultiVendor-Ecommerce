@@ -17,11 +17,13 @@ class VendorDetailSerializer(serializers.ModelSerializer):
 class ProductListSerializer(serializers.ModelSerializer):
     vendor_username = serializers.CharField(source='vendor.user.username', read_only=True)
     product_rating= serializers.StringRelatedField(many=True , read_only=True)
+    
 
     class Meta:
         model = models.Product
         fields= ['id','category','vendor' , 'vendor_username' , 'title' , 'detail' , 'price' , 'product_rating']
-        
+
+  
 
 class ProductDetailSerializer(serializers.ModelSerializer):
     vendor_username = serializers.CharField(source='vendor.user.username', read_only=True)

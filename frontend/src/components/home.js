@@ -5,6 +5,25 @@ import Singleproduct from './singleproduct';
 
 
 function Home() {
+const products=[
+  {
+    'title':'product_1',
+    'price':100
+  },
+  {
+    'title':'product_2',
+    'price':200
+  },
+  {
+    'title':'product_3',
+    'price':300
+  },
+  {
+    'title':'product_4',
+    'price':400
+  },
+]
+
   return (
     <main className="mt-3">
       <section className="container mt-4">
@@ -12,19 +31,15 @@ function Home() {
 
         <div className="container">
           <h3 className="fw-bold mb-4">
-            Latest Products <Link to="/AllProducts"
+            Latest Products <Link to="/products"
               className="float-end btn btn-dark">View All Products
               <i className="fa-solid fa-arrow-right-long ms-1"></i></Link>
           </h3>
           <div className="row mb-4">
-          <Singleproduct title="python" />
-         <Singleproduct title="python" />
-        <Singleproduct title="java" />
-        <Singleproduct title="jonathon" />
-        <Singleproduct title="react" />
-        <Singleproduct title="react" />
-        <Singleproduct title="react" />
-        <Singleproduct title="react" />
+
+              {
+                products.map((product) => <Singleproduct product={product} />)
+              }
           </div>
           {/* latest product end  */}
         </div>
