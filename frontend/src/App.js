@@ -53,7 +53,7 @@ function App() {
         <Route path='/checkout' element={<Checkout />} />
         <Route path='/order/success' element={<OrderSuccess />} />
         <Route path='/order/failure' element={<OrderFailure />} />
-
+ 
         {/* customer panel */}
         <Route path='/customer/login' element={<Login  />} />
         <Route path='/customer/register' element={<Register />} />
