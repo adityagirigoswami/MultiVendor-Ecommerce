@@ -21,17 +21,22 @@ class ProductListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Product
-        fields= ['id','category','vendor' , 'vendor_username' , 'title' , 'detail' , 'price' , 'product_rating']
+        fields= ['id','category','vendor' , 'vendor_username' , 'title' , 'slug', 'detail' , 'price' , 'product_rating']
 
   
-
+class ProductImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.ProductImage
+        fields = ['id','product','image']
+        
 class ProductDetailSerializer(serializers.ModelSerializer):
     vendor_username = serializers.CharField(source='vendor.user.username', read_only=True)
     product_rating= serializers.StringRelatedField(many=True , read_only=True)
+    product_imgs=ProductImageSerializer(many=True , read_only=True)   
     class Meta:
         model = models.Product
-        fields= ['id','category','vendor' , 'vendor_username' , 'title' , 'detail' , 'price', 'product_rating']
-        # depth = 1
+        fields= ['id','category','vendor' , 'vendor_username' , 'title' , 'slug' , 'tags' , 'detail' , 'price', 'product_rating' , 'product_imgs']
+        depth = 1
 
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
@@ -83,3 +88,4 @@ class CategoryDetailSerializer(serializers.ModelSerializer):
         model = models.ProductCategory
         fields= ['id','title','details']
         depth = 1
+        

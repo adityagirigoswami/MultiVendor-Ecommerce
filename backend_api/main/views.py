@@ -22,6 +22,19 @@ class ProductList(generics.ListCreateAPIView):
     queryset = models.Product.objects.all()
     serializer_class = serializers.ProductListSerializer
     # pagination_class= pagination.LimitOffsetPagination
+    
+    def get_queryset(self):
+        qs = super().get_queryset()
+        category_id = self.request.GET.get('category')  # Safely get query param
+        if category_id:
+            try:
+                category = models.ProductCategory.objects.get(id=category_id)
+                qs = qs.filter(category=category)
+            except models.ProductCategory.DoesNotExist:
+                qs = qs.none()  # Return empty queryset if category doesn't exist
+        return qs
+
+    
 
 
 

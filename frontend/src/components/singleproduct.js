@@ -1,12 +1,24 @@
 import logo from "../logo.svg";
 import { Link } from "react-router-dom";
+// function slugify(text) {
+//   return text
+//     .toLowerCase()
+//     .replace(/\s+/g, '-')      // Replace spaces with dashes
+//     .replace(/[^\w\-]+/g, '')  // Remove non-word characters
+//     .replace(/\-\-+/g, '-')    // Replace multiple dashes with one
+//     .replace(/^-+/, '')        // Trim starting dash
+//     .replace(/-+$/, '');       // Trim ending dash
+// }
+
 function Singleproduct(props) {
+  console.log("Product:", props.product);
+
   return (
     <div className="col-12 col-md-3 mb-4">
                                   <div className="card shadow" style={{ width: "18rem" }}>
-                                    <Link to="/product/python-timer/123"><img className="card-img-top" src={logo} alt="Card cap" /></Link>
+                                    <Link to={`/product/${props.product.slug}/${props.product.id}`}><img className="card-img-top" src={logo} alt="Card cap" /></Link>
                                     <div className="card-body">
-                                    <Link to="/product/python-timer/123"><h5 className="card-title">{props.product.title}</h5></Link>
+                                    <Link to={`/product/${props.product.slug}/${props.product.id}`}><h5 className="card-title">{props.product.title}</h5></Link>
                                       <h5 className="card-title text-muted">Price Rs. {props.product.price}</h5>
                                     </div>
                                     <div className="card-footer">

@@ -115,7 +115,7 @@ const products=[
         {/* Popular Categories*/}
         <div className="container">
           <h3 className="fw-bold mb-4">
-            Popular Categories <a href="#"
+            Popular Categories <a href="/categories"
               className="float-end btn btn-dark">View All Categories
               <i className="fa-solid fa-arrow-right-long ms-1"></i></a>
           </h3>
