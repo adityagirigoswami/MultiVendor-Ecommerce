@@ -35,7 +35,7 @@ class ProductDetailSerializer(serializers.ModelSerializer):
     product_imgs=ProductImageSerializer(many=True , read_only=True)   
     class Meta:
         model = models.Product
-        fields= ['id','category','vendor' , 'vendor_username' , 'title' , 'slug' , 'tag_list' , 'detail' , 'price', 'product_rating' , 'product_imgs']
+        fields= ['id','category','vendor' , 'vendor_username' , 'title' , 'slug' , 'tag_list' , 'detail' , 'price', 'product_rating' , 'product_imgs' , 'demo_url']
         depth = 1
 
 class CustomerSerializer(serializers.ModelSerializer):

@@ -115,9 +115,9 @@ console.log(productImgs)
           </p>
           <h5 className="card-title">Price: Rs. {productData.price}</h5>
           <p className="mt-3">
-            <Link title="demo" target="_blank_" className="btn btn-dark">
+            <a title="demo" href={productData.demo_url} target="_blank_" className="btn btn-dark">
               <i className="fa-solid fa-cart-plus"></i> Demo
-            </Link>
+            </a>
             <button title="add to cart" className="btn btn-primary ms-1">
               <i className="fa-solid fa-cart-plus"></i> Add to Cart
             </button>
@@ -157,58 +157,63 @@ console.log(productImgs)
       {/* PRODUCT DETAIL BOX END */}
 
       {/* related poduct  box  */}
-      <h3 className="mt-4 mb-4 text-center">Related Products</h3>
+      
+      {relatedProducts.length > 0 &&
+      <>
+          <h3 className="mt-4 mb-4 text-center">Related Products</h3>
+          <div
+            id="relatedproductCarousel"
+            class="carousel slide carousel-dark"
+            data-bs-ride="true"
+          >
+            <div class="carousel-indicators">
+            {relatedProducts.map((product,index)=>{
 
-      <div
-        id="relatedproductCarousel"
-        class="carousel slide carousel-dark"
-        data-bs-ride="true"
-      >
-        <div class="carousel-indicators">
-        {relatedProducts.map((product,index)=>{
+                      if(index === 0){
+                        return <button
+                        type="button"
+                        data-bs-target="#relatedproductCarousel"
+                        data-bs-slide-to={index}
+                        class="active"
+                        aria-current="true"
+                        aria-label="Slide 1"
+                      ></button>
+                      }
 
+                      else{
+                        return <button
+                        type="button"
+                        data-bs-target="#relatedproductCarousel"
+                        data-bs-slide-to={index}
+                        aria-current="true"
+                        aria-label="Slide 1"
+                        ></button>
+                      }
+                      })}
+            </div>
+            <div class="carousel-inner">
+            {relatedProducts.map((product,index)=>{
                   if(index === 0){
-                    return <button
-                    type="button"
-                    data-bs-target="#relatedproductCarousel"
-                    data-bs-slide-to={index}
-                    class="active"
-                    aria-current="true"
-                    aria-label="Slide 1"
-                  ></button>
+                    return <div class="carousel-item active">
+                    <div className="row mb-4">
+                    <SingleRelatedProduct product={product} />
+                    </div>
+                  </div>
                   }
-
                   else{
-                    return <button
-                    type="button"
-                    data-bs-target="#relatedproductCarousel"
-                    data-bs-slide-to={index}
-                    aria-current="true"
-                    aria-label="Slide 1"
-                    ></button>
+                    return <div class="carousel-item">
+                    <div className="row mb-4">
+                      <SingleRelatedProduct product={product} />
+                    </div>{" "}
+                  </div>
                   }
-                  })}
-        </div>
-        <div class="carousel-inner">
-        {relatedProducts.map((product,index)=>{
-              if(index === 0){
-                return <div class="carousel-item active">
-                <div className="row mb-4">
-                <SingleRelatedProduct product={product} />
-                </div>
-              </div>
-              }
-              else{
-                return <div class="carousel-item">
-                <div className="row mb-4">
-                  <SingleRelatedProduct product={product} />
-                </div>{" "}
-              </div>
-              }
-              
-            })}
-        </div>
-      </div>
+                  
+                })}
+            </div>
+          </div>
+      </>
+      }
+      
       {/* related poduct  box  end*/}
     </section>
   );
