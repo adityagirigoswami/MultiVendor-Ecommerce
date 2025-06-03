@@ -17,7 +17,6 @@ A full-stack Django-based multi-vendor eCommerce platform that enables vendors t
 - **Frontend**: React.js
 - **Database**: PostgreSQL
 - **Authentication**: JWT (JSON Web Tokens)
-- **Deployment**: Docker, Nginx, Gunicorn
 
 ## 📦 Installation
 
@@ -26,7 +25,6 @@ A full-stack Django-based multi-vendor eCommerce platform that enables vendors t
 - Python 3.8+
 - Node.js 14+
 - PostgreSQL
-- Docker & Docker Compose (optional)
 
 ### Backend Setup
 
