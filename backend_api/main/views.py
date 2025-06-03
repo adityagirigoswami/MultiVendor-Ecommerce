@@ -33,9 +33,18 @@ class ProductList(generics.ListCreateAPIView):
             except models.ProductCategory.DoesNotExist:
                 qs = qs.none()  # Return empty queryset if category doesn't exist
         return qs
-
     
 
+class RelatedProductList(generics.ListAPIView):
+    queryset = models.Product.objects.all()
+    serializer_class = serializers.ProductListSerializer
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        product_id = self.kwargs['pk']
+        product = models.Product.objects.get(id=product_id)
+        qs = qs.filter(category=product.category).exclude(id=product_id) 
+        return qs
 
 
 class ProductDetail(generics.RetrieveUpdateDestroyAPIView ):

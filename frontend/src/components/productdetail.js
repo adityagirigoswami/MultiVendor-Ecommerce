@@ -1,14 +1,19 @@
 import { Link } from "react-router-dom";
-import logo from "../logo.svg";
 import { useState,useEffect } from "react";
 import { useParams } from "react-router-dom";
+import SingleRelatedProduct from "./singleRelatedProduct";
 function ProductDetail() {
 
     const baseUrl = 'http://127.0.0.1:8000/api';
     const [productData,setProductData] = useState([]);
     const [productImgs , setproductImgs]=useState([]);
+    const [relatedProducts , setRelatedProducts] = useState([])
     const {product_slug,product_id} = useParams();
      
+    useEffect(() => {
+      fetchData(baseUrl+'/product/' + product_id);
+      fetchRelatedData(baseUrl + '/related-product/' + product_id)
+} , []);
 
     function fetchData(baseurl){
       fetch(baseurl)
@@ -21,9 +26,14 @@ function ProductDetail() {
     );
     }
     
-    useEffect(() => {
-      fetchData(baseUrl+'/product/' + product_id);
-} , []);
+    function fetchRelatedData(baseurl){
+      fetch(baseurl)
+      .then((response) => response.json())
+      .then((data)=>{
+          setRelatedProducts(data.results);
+      });
+    }
+
 
 console.log(productImgs)
 
@@ -147,62 +157,58 @@ console.log(productImgs)
       {/* PRODUCT DETAIL BOX END */}
 
       {/* related poduct  box  */}
-      <h3 className="mt-4 mb-4">Related Products</h3>
+      <h3 className="mt-4 mb-4 text-center">Related Products</h3>
 
-      {/* <div
+      <div
         id="relatedproductCarousel"
         class="carousel slide carousel-dark"
         data-bs-ride="true"
       >
         <div class="carousel-indicators">
-          <button
-            type="button"
-            data-bs-target="#relatedproductCarousel"
-            data-bs-slide-to="0"
-            class="active"
-            aria-current="true"
-            aria-label="Slide 1"
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#relatedproductCarousel"
-            data-bs-slide-to="1"
-            aria-label="Slide 2"
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#relatedproductCarousel"
-            data-bs-slide-to="2"
-            aria-label="Slide 3"
-          ></button>
+        {relatedProducts.map((product,index)=>{
+
+                  if(index === 0){
+                    return <button
+                    type="button"
+                    data-bs-target="#relatedproductCarousel"
+                    data-bs-slide-to={index}
+                    class="active"
+                    aria-current="true"
+                    aria-label="Slide 1"
+                  ></button>
+                  }
+
+                  else{
+                    return <button
+                    type="button"
+                    data-bs-target="#relatedproductCarousel"
+                    data-bs-slide-to={index}
+                    aria-current="true"
+                    aria-label="Slide 1"
+                    ></button>
+                  }
+                  })}
         </div>
         <div class="carousel-inner">
-          <div class="carousel-item active">
-            <div className="row mb-4">
-              <Singleproduct title="react" />
-              <Singleproduct title="react" />
-              <Singleproduct title="react" />
-              <Singleproduct title="react" />
-            </div>
-          </div>
-          <div class="carousel-item">
-            <div className="row mb-4">
-              <Singleproduct title="react" />
-              <Singleproduct title="react" />
-              <Singleproduct title="react" />
-              <Singleproduct title="react" />
-            </div>{" "}
-          </div>
-          <div class="carousel-item">
-            <div className="row mb-4">
-              <Singleproduct title="react" />
-              <Singleproduct title="jhatu" />
-              <Singleproduct title="react" />
-              <Singleproduct title="react" />
-            </div>{" "}
-          </div>
+        {relatedProducts.map((product,index)=>{
+              if(index === 0){
+                return <div class="carousel-item active">
+                <div className="row mb-4">
+                <SingleRelatedProduct product={product} />
+                </div>
+              </div>
+              }
+              else{
+                return <div class="carousel-item">
+                <div className="row mb-4">
+                  <SingleRelatedProduct product={product} />
+                </div>{" "}
+              </div>
+              }
+              
+            })}
         </div>
-      </div> */}
+      </div>
       {/* related poduct  box  end*/}
     </section>
   );

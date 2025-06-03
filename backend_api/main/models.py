@@ -35,8 +35,9 @@ class Product(models.Model):
     def __str__(self):
         return self.title
     
-    def tag_link(self):
-        return self.tags.split(',')
+    def tag_list(self):
+        taglist=  self.tags.split(',')
+        return taglist
 
 
 # customer model

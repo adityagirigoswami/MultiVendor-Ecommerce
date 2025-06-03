@@ -27,7 +27,7 @@ function AllProducts() {
   }
 
   var links=[];
-  var limit = 1;
+  var limit = 12;
   var totalLinks=totalResult/limit;
   for(let i = 1; i<=totalLinks ; i++)
   {
