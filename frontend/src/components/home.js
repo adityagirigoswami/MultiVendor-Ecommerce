@@ -5,24 +5,29 @@ import Singleproduct from './singleproduct';
 
 
 function Home() {
-const products=[
-  {
-    'title':'product_1',
-    'price':100
-  },
-  {
-    'title':'product_2',
-    'price':200
-  },
-  {
-    'title':'product_3',
-    'price':300
-  },
-  {
-    'title':'product_4',
-    'price':400
-  },
-]
+  const products = [
+    {
+      title: 'product_1',
+      price: 100,
+      image: "http://localhost:8000/media/product_imgs/2.jpg"
+    },
+    {
+      title: 'product_2',
+      price: 200,
+      image: "http://localhost:8000/media/product_imgs/3.jpg"
+    },
+    {
+      title: 'product_3',
+      price: 300,
+      image: "http://localhost:8000/media/product_imgs/4.jpg"
+    },
+    {
+      title: 'product_4',
+      price: 400,
+      image: "http://localhost:8000/media/product_imgs/5.jpg"
+    },
+  ];
+  
 
   return (
     <main className="mt-3">

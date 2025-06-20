@@ -1,5 +1,44 @@
 from rest_framework import serializers
 from . import models
+from django.contrib.auth.models import User
+from rest_framework.exceptions import ValidationError
+
+
+
+# -> customer signup
+class CustomerRegisterSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(write_only=True)
+    password = serializers.CharField(write_only=True, min_length=6)
+    email = serializers.EmailField(write_only=True)
+    first_name = serializers.CharField(write_only=True)
+    last_name = serializers.CharField(write_only=True)
+    mobile = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = models.Customer
+        fields = ['first_name', 'last_name', 'username', 'email', 'password', 'mobile']
+
+    def create(self, validated_data):
+        first_name = validated_data.pop('first_name')
+        last_name = validated_data.pop('last_name')
+        username = validated_data.pop('username')
+        email = validated_data.pop('email')
+        password = validated_data.pop('password')
+        mobile = validated_data.pop('mobile')
+
+        # Create user
+        user = User.objects.create_user(
+            first_name=first_name,
+            last_name=last_name,
+            username=username,
+            email=email,
+            password=password
+
+        )
+
+        # Create customer
+        customer = models.Customer.objects.create(user=user, mobile=mobile)
+        return customer
 
 class VendorSerializer(serializers.ModelSerializer):
     class Meta:
@@ -35,20 +74,26 @@ class ProductDetailSerializer(serializers.ModelSerializer):
     product_imgs=ProductImageSerializer(many=True , read_only=True)   
     class Meta:
         model = models.Product
-        fields= ['id','category','vendor' , 'vendor_username' , 'title' , 'slug' , 'tag_list' , 'detail' , 'price', 'product_rating' , 'product_imgs' , 'demo_url']
+        fields= ['id','category','vendor' , 'vendor_username' , 'title' , 'slug' , 'tag_list' , 'detail' , 'price', 'product_rating' , 'product_imgs' , 'demo_url' , 'image']
         depth = 1
 
 class CustomerSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source='user.username', read_only=True)
+
     class Meta:
         model = models.Customer
-        fields= ['id', 'user','mobile']
+        fields= ['id', 'user','username','mobile']
         # depth = 1
         
 class CustomerDetailSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source='user.username', read_only=True)
+
     class Meta:
         model = models.Customer
-        fields= ['id','user','mobile']
+        fields= ['id','user','username','mobile']
         # depth = 1
+
+
         
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:

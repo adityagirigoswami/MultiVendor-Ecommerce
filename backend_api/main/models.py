@@ -49,7 +49,6 @@ class Customer(models.Model):
     
     def __str__(self):
         return self.user.username
-
 # order model
 
 class Order(models.Model):

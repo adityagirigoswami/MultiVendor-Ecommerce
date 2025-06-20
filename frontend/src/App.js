@@ -16,6 +16,7 @@ import OrderFailure from './components/orderFailure';
 // {/* customer panel */}
 import Register from './components/customer/Register';
 import Login from './components/customer/login';
+import Logout from './components/customer/logout';
 import Dashboard from './components/customer/dashboard';
 import Orders from './components/customer/orders';
 import Wishlist from './components/customer/wishlist';
@@ -56,6 +57,7 @@ function App() {
  
         {/* customer panel */}
         <Route path='/customer/login' element={<Login  />} />
+        <Route path='/customer/logout' element={<Logout  />} />
         <Route path='/customer/register' element={<Register />} />
         <Route path='/customer/dashboard' element={<Dashboard />} />
         <Route path='/customer/orders' element={<Orders />} />

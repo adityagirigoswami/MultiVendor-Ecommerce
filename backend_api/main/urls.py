@@ -1,6 +1,13 @@
 from django.urls import path
 from . import views
+
 from rest_framework import routers
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenBlacklistView,
+)
+
 
 router = routers.DefaultRouter()
 
@@ -8,6 +15,16 @@ router.register('address' , views.CustomerAddressViewset)
 router.register('ProductRating' , views.ProductRatingViewset)
 
 urlpatterns = [
+    # customer login
+    path('customer/profile/', views.CustomerProfileView.as_view(), name='customer_profile'),
+    # customer register 
+    path('customer/register/', views.CustomerRegisterView.as_view(), name='customer-register'),
+
+
+    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('logout/', TokenBlacklistView.as_view(), name='token_blacklist'),
+
     # vendors
     path('vendors/' , views.VendorList.as_view()),
     path('vendor/<int:pk>/' , views.VendorDetail.as_view()),
@@ -28,7 +45,7 @@ urlpatterns = [
     
     # order
      path('orders/' , views.Order.as_view()),
-     path('order/<int:pk>/' , views.OrderItem.as_view()),
+    path("order-items/<int:pk>/", views.OrderItem.as_view(), name="order-items"),
 
 ]
 

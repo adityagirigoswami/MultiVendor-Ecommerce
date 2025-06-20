@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 import { useState,useEffect } from "react";
 import { useParams } from "react-router-dom";
 import SingleRelatedProduct from "./singleRelatedProduct";
+import { AuthContext } from "./contexts/AuthContext";
+import { useContext } from "react";
+
 function ProductDetail() {
 
     const baseUrl = 'http://127.0.0.1:8000/api';
@@ -9,6 +12,9 @@ function ProductDetail() {
     const [productImgs , setproductImgs]=useState([]);
     const [relatedProducts , setRelatedProducts] = useState([])
     const {product_slug,product_id} = useParams();
+    const { addToCart, removeFromCart, cartItems } = useContext(AuthContext);
+    const isInCart = cartItems.some((item) => item.id === productData.id);
+
      
     useEffect(() => {
       fetchData(baseUrl+'/product/' + product_id);
@@ -118,9 +124,16 @@ console.log(productImgs)
             <a title="demo" href={productData.demo_url} target="_blank_" className="btn btn-dark">
               <i className="fa-solid fa-cart-plus"></i> Demo
             </a>
-            <button title="add to cart" className="btn btn-primary ms-1">
-              <i className="fa-solid fa-cart-plus"></i> Add to Cart
-            </button>
+            {isInCart ? (
+                  <button className="btn btn-warning ms-1" onClick={() => removeFromCart(productData.id)}>
+                    <i className="fa-solid fa-trash"></i> Remove from Cart
+                  </button>
+                ) : (
+                  <button className="btn btn-primary ms-1" onClick={() => addToCart(productData)}>
+                    <i className="fa-solid fa-cart-plus"></i> Add to Cart
+                  </button>
+                )}
+
 
             <button title="buy now" className="btn btn-success ms-1">
               <i className="fa-solid fa-bag-shopping"></i> Buy Now

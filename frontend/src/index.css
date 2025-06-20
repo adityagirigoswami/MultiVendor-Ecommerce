@@ -5,10 +5,36 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* App.css or index.css */
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2); /* Example gradient */
+  background-attachment: fixed; /* Makes it stay during scroll */
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+
+
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+}
+
+
+.card img {
+  transition: 0.3s ease-in-out;
+}
+
+.card img:hover {
+  opacity: 0.9;
+}
+
 
