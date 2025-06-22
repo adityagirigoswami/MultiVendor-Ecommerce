@@ -1,0 +1,37 @@
+services:
+  backend:
+    build:
+      context: ./backend_api
+    volumes:
+      - ./backend_api:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+
+ 
+  db:
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_DB: MultiVendor_ecom
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 2204
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-p=nr_k!6l560ccrtsol4h_93_39i8&k=tro%lk_pxy$gy0esbm
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -87,7 +87,9 @@ DATABASES = {
         'NAME': 'MultiVendor_ecom',
         'USER':'postgres',
         'PASSWORD':'2204',
-        'HOST':'localhost',
+        'HOST': 'db',
+        'PORT': '5432',
+
     }
 }
 
