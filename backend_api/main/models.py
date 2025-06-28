@@ -32,7 +32,8 @@ class Product(models.Model):
     tags=models.TextField(null=True)
     image=models.ImageField(upload_to='product_imgs/' , null=True)
     demo_url = models.URLField(null=True , blank=True)
-    
+    file = models.FileField(upload_to='scripts/', null=True, blank=True)  # ✅ Add this
+
     def __str__(self):
         return self.title
     
@@ -56,14 +57,15 @@ class Order(models.Model):
     Order_time= models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return ('order of ' +  self.customer.user.username)
+        return f"Order of {self.customer.user.username} | Order ID: {self.id}"
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order , on_delete=models.CASCADE,related_name = 'order_items')
     product = models.ForeignKey(Product , on_delete=models.CASCADE)
     
     def __str__(self):
-        return self.product.title
+        return f"{self.product.title} (Order ID: {self.order.id})"
 
 class CustomerAddress(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE , related_name="Customer_Address")

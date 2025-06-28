@@ -3,12 +3,37 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from . import serializers
-from rest_framework import generics ,permissions , pagination ,viewsets
+from rest_framework import generics , viewsets
 from . import models
 from . import urls
 from rest_framework import status
 from django.contrib.auth.models import User
 from rest_framework.exceptions import ValidationError
+# views.py
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import status
+import razorpay
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from django.conf import settings
+
+@csrf_exempt
+def create_razorpay_order(request):
+    import json
+    data = json.loads(request.body)
+    amount = int(float(data['amount']) * 100)  # Razorpay accepts paise
+
+    client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
+
+    payment = client.order.create({
+        "amount": amount,
+        "currency": "INR",
+        "payment_capture": "1"
+    })
+
+    return JsonResponse(payment)
 
 
 # customer register
@@ -144,6 +169,54 @@ class OrderItem(generics.ListCreateAPIView):
         order_item= models.OrderItem.objects.filter(order=order)
         return order_item
     
+
+
+class PlaceOrderAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = request.user
+        cart_items = request.data.get("items", [])
+        if not cart_items:
+            return Response({"error": "Cart is empty"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            customer = models.Customer.objects.get(user=user)
+        except models.Customer.DoesNotExist:
+            return Response({"error": "Customer not found"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Create Order
+        order = models.Order.objects.create(customer=customer)
+
+        # Create OrderItems
+        for item in cart_items:
+            product_id = item.get("id")
+            try:
+                product = models.Product.objects.get(id=product_id)
+            except models.Product.DoesNotExist:
+                return Response({"error": f"Product {product_id} not found"}, status=status.HTTP_400_BAD_REQUEST)
+            
+            models.OrderItem.objects.create(order=order, product=product)
+
+        return Response({
+            "message": "Order placed successfully",
+            "order_id": order.id,
+        }, status=status.HTTP_201_CREATED)
+
+
+class CustomerOrderListAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        try:
+            customer = models.Customer.objects.get(user=request.user)
+        except models.Customer.DoesNotExist:
+            return Response({"error": "Customer not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        orders = models.Order.objects.filter(customer=customer).order_by('-Order_time')
+        serializer = serializers.OrderSerializer(orders, many=True)
+        return Response(serializer.data)
+       
 class CustomerAddressViewset(viewsets.ModelViewSet):
     queryset = models.CustomerAddress.objects.all()
     serializer_class = serializers.CustomerAddressSerializer

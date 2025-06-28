@@ -2,9 +2,7 @@ from rest_framework import serializers
 from . import models
 from django.contrib.auth.models import User
 from rest_framework.exceptions import ValidationError
-
-
-
+    
 # -> customer signup
 class CustomerRegisterSerializer(serializers.ModelSerializer):
     username = serializers.CharField(write_only=True)
@@ -93,18 +91,19 @@ class CustomerDetailSerializer(serializers.ModelSerializer):
         fields= ['id','user','username','mobile']
         # depth = 1
 
-
-        
-class OrderSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Order
-        fields= ['id', 'customer']
-        depth = 1
         
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.OrderItem
         fields= ['id','order','product']
+        depth = 1
+        
+class OrderSerializer(serializers.ModelSerializer):
+    order_items = OrderItemSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = models.Order
+        fields= ['id', 'customer' , 'order_items']
         depth = 1
         
 class CustomerAddressSerializer(serializers.ModelSerializer):

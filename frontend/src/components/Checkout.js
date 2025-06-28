@@ -9,68 +9,66 @@ function Checkout() {
   const totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
 
   const handlePlaceOrder = async () => {
-    const token = localStorage.getItem("access");
-    if (!token) {
-      alert("Login first!");
-      return navigate("/customer/login");
-    }
-
-    try {
-      // 1. Create Order
-      const orderRes = await fetch("http://127.0.0.1:8000/api/orders/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({}),
-      });
-
-      const orderData = await orderRes.json();
-      if (!orderRes.ok) {
-        throw new Error(`Order creation failed: ${JSON.stringify(orderData)}`);
-      }
-
-      const orderId = orderData.id;
-
-      // 2. Add OrderItems for each cart item
-      let allSuccess = true;
-      for (const item of cartItems) {
-        const itemRes = await fetch(
-          `http://127.0.0.1:8000/api/order-items/${orderId}/`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
+    const orderRes = await fetch("http://127.0.0.1:8000/api/razorpay/order/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ amount: totalPrice }),
+    });
+  
+    const orderData = await orderRes.json();
+  
+    const options = {
+      key: "rzp_test_N8RajnGbmmpb0B",
+      amount: orderData.amount,
+      currency: orderData.currency,
+      name: "My Shop",
+      description: "Test Transaction",
+      order_id: orderData.id,
+      handler: async function (response) {
+        alert("✅ Payment Successful!");
+      
+        // Store order in Django
+        const storeOrderRes = await fetch("http://127.0.0.1:8000/api/place-order/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("access")}`,
+          },
+          body: JSON.stringify({ items: cartItems }),
+        });
+      
+        const orderResult = await storeOrderRes.json();
+      
+        if (storeOrderRes.ok) {
+          clearCart();
+          navigate("/order-confirmation", {
+            state: {
+              orderId: orderResult.order_id,
+              itemCount: cartItems.length,
+              totalPrice: totalPrice,
             },
-            body: JSON.stringify({
-              product: item.id,
-            }),
-          }
-        );
-
-        if (!itemRes.ok) {
-          const itemErr = await itemRes.text();
-          console.error("Failed to add item:", item.title, itemErr);
-          allSuccess = false;
+          });
+        } else {
+          alert("⚠️ Order saving failed: " + orderResult.error);
         }
       }
-
-      if (allSuccess) {
-        alert("✅ Order placed successfully!");
-        clearCart();  // <-- Empty the cart
-        // navigate("/thank-you");
-      }
-      
-      else {
-        alert("⚠️ Order placed but some items failed to add.");
-      }
-    } catch (err) {
-      console.error("Order failed:", err);
-      alert("❌ Order failed: " + err.message);
-    }
+      ,
+      prefill: {
+        name: "Aditya",
+        email: "aditya@example.com",
+        contact: "9999999999",
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+  
+    const rzp1 = new window.Razorpay(options);
+    rzp1.open();
   };
+  
+  
+  
 
   return (
     <div className="container mt-4">

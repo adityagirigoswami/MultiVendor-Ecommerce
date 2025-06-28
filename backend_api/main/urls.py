@@ -7,6 +7,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenBlacklistView,
 )
+from .views import create_razorpay_order
 
 
 router = routers.DefaultRouter()
@@ -15,6 +16,13 @@ router.register('address' , views.CustomerAddressViewset)
 router.register('ProductRating' , views.ProductRatingViewset)
 
 urlpatterns = [
+    
+    # payment
+    path('razorpay/order/', create_razorpay_order),
+    path("place-order/", views.PlaceOrderAPIView.as_view(), name="place_order"),
+    path("customer/orders/", views.CustomerOrderListAPIView.as_view()),
+
+
     # customer login
     path('customer/profile/', views.CustomerProfileView.as_view(), name='customer_profile'),
     # customer register 
@@ -26,7 +34,7 @@ urlpatterns = [
     path('logout/', TokenBlacklistView.as_view(), name='token_blacklist'),
 
     # vendors
-    path('vendors/' , views.VendorList.as_view()),
+    path('vendors/' , views.VendorList.as_view()), 
     path('vendor/<int:pk>/' , views.VendorDetail.as_view()),
     
     # product

@@ -16,6 +16,10 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+RAZORPAY_KEY_ID = "rzp_test_N8RajnGbmmpb0B"
+RAZORPAY_KEY_SECRET = "DSHqQEOeQklh99nj5IiBOVAu"
+
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -87,9 +91,7 @@ DATABASES = {
         'NAME': 'MultiVendor_ecom',
         'USER':'postgres',
         'PASSWORD':'2204',
-        'HOST': 'db',
-        'PORT': '5432',
-
+        'HOST': 'localhost',
     }
 }
 

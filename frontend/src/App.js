@@ -36,6 +36,7 @@ import SellerCustomer from './components/seller/SellerCustomer';
 import SellerReport from './components/seller/SellerReport';
 import SellerProfile from './components/seller/SellerProfile';
 import SellerChangePassword from './components/seller/SellerPassword';
+import OrderConfirmation from "./components/OrderConfirmation"; // adjust path
 
 
 
@@ -66,6 +67,10 @@ function App() {
         <Route path='/customer/change-password' element={<ChangePassword />} />
         <Route path='/customer/address-list' element={<AddressList />} />
         <Route path='/customer/add-address' element={<AddAddress />} />
+
+
+        <Route path="/order-confirmation" element={<OrderConfirmation />} />
+
 
         {/* seller panel  */}
         <Route path='/seller/login' element={<SellerLogin  />} />
