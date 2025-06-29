@@ -28,7 +28,7 @@ function OrderConfirmation() {
           Continue Shopping
         </Link>
         <Link to="/customer/orders" className="btn btn-outline-success ms-2">
-          Go to Dashboard
+          Collect the Order
         </Link>
       </div>
     </div>
