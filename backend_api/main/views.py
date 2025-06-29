@@ -16,8 +16,32 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 import razorpay
 from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
+from django.http import JsonResponse , FileResponse ,Http404
 from django.conf import settings
+import os
+from django.utils.encoding import smart_str
+
+
+
+class DownloadScriptView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, order_item_id):
+        try:
+            order_item = models.OrderItem.objects.get(id=order_item_id, order__customer__user=request.user)
+        except models.OrderItem.DoesNotExist:
+            raise Http404("Order item not found")
+
+        product_file = order_item.product.file
+        if not product_file:
+            raise Http404("No file attached")
+
+        filename = os.path.basename(product_file.name)
+
+        response = FileResponse(product_file.open("rb"), as_attachment=True)
+        response["Content-Disposition"] = f'attachment; filename="{smart_str(filename)}"'
+        return response
+
 
 @csrf_exempt
 def create_razorpay_order(request):

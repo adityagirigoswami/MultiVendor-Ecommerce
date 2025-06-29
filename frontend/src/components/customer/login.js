@@ -28,6 +28,9 @@ function Login() {
       // Save tokens in localStorage or context
       localStorage.setItem("accessToken", access);
       localStorage.setItem("refreshToken", refresh);
+      localStorage.setItem("username", username);
+
+
 
       // Optionally pass to context
       login(access, username);

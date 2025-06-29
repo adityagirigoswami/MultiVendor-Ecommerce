@@ -38,11 +38,22 @@ import SellerProfile from './components/seller/SellerProfile';
 import SellerChangePassword from './components/seller/SellerPassword';
 import OrderConfirmation from "./components/OrderConfirmation"; // adjust path
 
+import { useContext, useEffect } from "react";
+import { AuthContext } from "./components/contexts/AuthContext";
+import { setAuthContext } from "./utils/secureFetch";
+
+
 
 
 function App() {
   
+  const authContext = useContext(AuthContext);
+
+  useEffect(() => {
+    setAuthContext(authContext); // Just once
+  }, [authContext]);
   return (
+    
     <>
 
       <Header />

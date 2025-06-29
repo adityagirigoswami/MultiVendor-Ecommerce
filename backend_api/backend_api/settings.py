@@ -167,3 +167,22 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
+
+from corsheaders.defaults import default_headers
+
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    "content-disposition",
+]
+
+CORS_EXPOSE_HEADERS = ["content-disposition"]
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),  # 🔄 increase from default 5 minutes
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),     # 🔄 increase from default 1 day
+    "ROTATE_REFRESH_TOKENS": True,                   # optional: rotate on refresh
+    "BLACKLIST_AFTER_ROTATION": True,                # optional: support logout
+    "AUTH_HEADER_TYPES": ("Bearer",),
+    "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
+}

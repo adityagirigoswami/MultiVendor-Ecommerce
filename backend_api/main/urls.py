@@ -17,6 +17,9 @@ router.register('ProductRating' , views.ProductRatingViewset)
 
 urlpatterns = [
     
+    path("download/<int:order_item_id>/", views.DownloadScriptView.as_view(), name="download-script"),
+
+
     # payment
     path('razorpay/order/', create_razorpay_order),
     path("place-order/", views.PlaceOrderAPIView.as_view(), name="place_order"),

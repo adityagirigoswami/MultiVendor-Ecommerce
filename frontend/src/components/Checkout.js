@@ -1,74 +1,79 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "./contexts/AuthContext";
+import secureFetch from "../utils/secureFetch";
 
 function Checkout() {
-  const { cartItems, removeFromCart, isLoggedIn ,clearCart  } = useContext(AuthContext);
+  const { cartItems, removeFromCart, isLoggedIn, clearCart } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
 
   const handlePlaceOrder = async () => {
-    const orderRes = await fetch("http://127.0.0.1:8000/api/razorpay/order/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount: totalPrice }),
-    });
-  
-    const orderData = await orderRes.json();
-  
-    const options = {
-      key: "rzp_test_N8RajnGbmmpb0B",
-      amount: orderData.amount,
-      currency: orderData.currency,
-      name: "My Shop",
-      description: "Test Transaction",
-      order_id: orderData.id,
-      handler: async function (response) {
-        alert("✅ Payment Successful!");
-      
-        // Store order in Django
-        const storeOrderRes = await fetch("http://127.0.0.1:8000/api/place-order/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("access")}`,
-          },
-          body: JSON.stringify({ items: cartItems }),
-        });
-      
-        const orderResult = await storeOrderRes.json();
-      
-        if (storeOrderRes.ok) {
-          clearCart();
-          navigate("/order-confirmation", {
-            state: {
-              orderId: orderResult.order_id,
-              itemCount: cartItems.length,
-              totalPrice: totalPrice,
-            },
-          });
-        } else {
-          alert("⚠️ Order saving failed: " + orderResult.error);
-        }
-      }
-      ,
-      prefill: {
-        name: "Aditya",
-        email: "aditya@example.com",
-        contact: "9999999999",
-      },
-      theme: {
-        color: "#3399cc",
-      },
-    };
-  
-    const rzp1 = new window.Razorpay(options);
-    rzp1.open();
+    try {
+      const orderRes = await secureFetch("http://127.0.0.1:8000/api/razorpay/order/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: totalPrice }),
+      });
+
+      const orderData = await orderRes.json();
+
+      const options = {
+        key: "rzp_test_N8RajnGbmmpb0B",
+        amount: orderData.amount,
+        currency: orderData.currency,
+        name: "My Shop",
+        description: "Test Transaction",
+        order_id: orderData.id,
+        handler: async function (response) {
+          alert("✅ Payment Successful!");
+
+          try {
+            const storeOrderRes = await secureFetch("http://127.0.0.1:8000/api/place-order/", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ items: cartItems }),
+            });
+
+            const orderResult = await storeOrderRes.json();
+
+            if (storeOrderRes.ok) {
+              clearCart();
+              navigate("/order-confirmation", {
+                state: {
+                  orderId: orderResult.order_id,
+                  itemCount: cartItems.length,
+                  totalPrice: totalPrice,
+                },
+              });
+            } else {
+              alert("⚠️ Order saving failed: " + orderResult.error);
+            }
+          } catch (err) {
+            alert("⚠️ Failed to save order.");
+            console.error("Order error:", err);
+          }
+        },
+        prefill: {
+          name: "Aditya",
+          email: "aditya@example.com",
+          contact: "9999999999",
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
+
+      const rzp1 = new window.Razorpay(options);
+      rzp1.open();
+    } catch (err) {
+      alert("⚠️ Failed to initiate payment.");
+      console.error("Razorpay error:", err);
+    }
   };
-  
-  
-  
 
   return (
     <div className="container mt-4">

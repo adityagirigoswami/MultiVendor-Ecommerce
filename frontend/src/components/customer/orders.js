@@ -1,17 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Sidebar from "./sidebar";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
+import secureFetch, { setAuthContext } from "../../utils/secureFetch";
 
 function Orders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const authContext = useContext(AuthContext);
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/customer/orders/", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("access")}`,
-      },
-    })
+    setAuthContext(authContext);
+    // ✅ Set context for token refresh inside secureFetch
+
+    secureFetch("http://127.0.0.1:8000/api/customer/orders/")
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -23,6 +25,43 @@ function Orders() {
         setLoading(false);
       });
   }, []);
+
+  const handleDownload = async (orderItemId) => {
+    try {
+      const response = await secureFetch(`http://127.0.0.1:8000/api/download/${orderItemId}/`);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        alert("Download failed");
+        console.error("Server error:", errorText);
+        return;
+      }
+
+      const blob = await response.blob();
+      const disposition = response.headers.get("Content-Disposition");
+      console.log("🔎 Header:", disposition);
+
+      let filename = "downloaded_file";
+      if (disposition) {
+        const filenameMatch = disposition.match(/filename="?([^"]+)"?/);
+        if (filenameMatch?.[1]) {
+          filename = filenameMatch[1];
+        }
+      }
+
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.setAttribute("download", filename);
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error downloading file:", error);
+      alert("Something went wrong.");
+    }
+  };
 
   return (
     <div className="container mt-4">
@@ -65,13 +104,12 @@ function Orders() {
                         <td>{orderIndex + 1}</td>
                         <td>
                           <Link to={`/product/${item.product.slug}/${item.product.id}`}>
-                          <img
-                                src={`http://127.0.0.1:8000${item.product.image}`}
-                                alt={item.product.title}
-                                className="img-thumbnail"
-                                width="80"
-                          />
-
+                            <img
+                              src={`http://127.0.0.1:8000${item.product.image}`}
+                              alt={item.product.title}
+                              className="img-thumbnail"
+                              width="80"
+                            />
                             <p>{item.product.title}</p>
                           </Link>
                         </td>
@@ -82,9 +120,18 @@ function Orders() {
                           </span>
                         </td>
                         <td>
-                          <button className="btn btn-primary btn-sm" disabled>
-                            Download
-                          </button>
+                          {item.product.file ? (
+                            <button
+                              className="btn btn-primary btn-sm"
+                              onClick={() => handleDownload(item.id)}
+                            >
+                              Download
+                            </button>
+                          ) : (
+                            <div className="text-dark bg-light border border-secondary rounded px-2 py-1 d-inline-block">
+                              No file
+                            </div>
+                          )}
                         </td>
                       </tr>
                     ))

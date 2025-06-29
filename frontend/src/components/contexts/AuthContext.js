@@ -1,27 +1,22 @@
 import { createContext, useState, useEffect } from "react";
 
-// contexts/AuthContext.js
-
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(() => !!localStorage.getItem("access"));
   const [username, setUsername] = useState(() => localStorage.getItem("username") || "");
   const [cartItems, setCartItems] = useState(() => JSON.parse(localStorage.getItem("cart")) || []);
+
   const clearCart = () => setCartItems([]);
 
   useEffect(() => {
-    const access = localStorage.getItem("access");
-    const user = localStorage.getItem("username");
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    setIsLoggedIn(!!access);
-    setUsername(user || "");
-    setCartItems(cart);
+    setIsLoggedIn(!!localStorage.getItem("access"));
+    setUsername(localStorage.getItem("username") || "");
+    setCartItems(JSON.parse(localStorage.getItem("cart")) || []);
   }, []);
 
-  const login = (accessToken, username) => {
-    localStorage.setItem("access", accessToken);
-    localStorage.setItem("username", username);
+  const login = (access, username) => {
+    localStorage.setItem("access", access);
     setIsLoggedIn(true);
     setUsername(username);
   };
@@ -34,15 +29,39 @@ const AuthProvider = ({ children }) => {
   };
 
   const addToCart = (product) => {
-    const updatedCart = [...cartItems, product];
-    setCartItems(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    const updated = [...cartItems, product];
+    setCartItems(updated);
+    localStorage.setItem("cart", JSON.stringify(updated));
   };
 
   const removeFromCart = (productId) => {
-    const updatedCart = cartItems.filter((item) => item.id !== productId);
-    setCartItems(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    const updated = cartItems.filter((item) => item.id !== productId);
+    setCartItems(updated);
+    localStorage.setItem("cart", JSON.stringify(updated));
+  };
+
+  // 🆕 Add refreshAccessToken
+  const refreshAccessToken = async () => {
+    try {
+      const refresh = localStorage.getItem("refresh");
+      if (!refresh) throw new Error("No refresh token");
+
+      const response = await fetch("http://127.0.0.1:8000/api/token/refresh/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ refresh }),
+      });
+
+      if (!response.ok) throw new Error("Refresh failed");
+
+      const data = await response.json();
+      localStorage.setItem("access", data.access);
+      setIsLoggedIn(true);
+      return data.access;
+    } catch (err) {
+      logout();
+      return null;
+    }
   };
 
   return (
@@ -55,7 +74,8 @@ const AuthProvider = ({ children }) => {
         cartItems,
         addToCart,
         removeFromCart,
-        clearCart
+        clearCart,
+        refreshAccessToken, // ✅ Provide to children
       }}
     >
       {children}
