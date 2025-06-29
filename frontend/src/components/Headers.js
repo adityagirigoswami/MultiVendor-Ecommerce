@@ -8,38 +8,34 @@ function Header() {
 
   return (
     <nav
-      className="navbar navbar-expand-lg"
+      className="navbar navbar-expand-lg shadow-sm"
       style={{
-        background: "linear-gradient(90deg, #1e3c72 0%, #2a5298 100%)",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-        color: "white",
-        padding: "12px 0",
+        backgroundColor: "#0d1117",
+        padding: "0.8rem 1rem",
+        // borderBottom: "1px solid #1E293B"
       }}
     >
-      <div className="container-fluid px-4">
-        {/* Logo and Brand */}
-        <Link to="/" className="navbar-brand d-flex align-items-center gap-2 text-white">
+      <div className="container-fluid mt-2 mb-2">
+        {/* Brand Logo */}
+        <Link to="/" className="navbar-brand text-white d-flex align-items-center gap-2">
           <img
             src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
-            alt="Python Logo"
+            alt="Python"
             width="40"
             height="40"
           />
-          <span className="fw-bold fs-3">PythonMarket</span>
+          <span className="fw-bold fs-3">Python Market Place</span>
         </Link>
 
-        <button
-          className="navbar-toggler bg-light"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarMenu"
-        >
+        {/* Toggler */}
+        <button className="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        {/* Links and Actions */}
-        <div className="collapse navbar-collapse" id="navbarMenu">
-          <ul className="navbar-nav me-auto ms-4">
+        {/* Main Content */}
+        <div className="collapse navbar-collapse" id="navbarNav">
+          {/* Left Links */}
+          <ul className="navbar-nav ms-4 me-auto">
             <li className="nav-item">
               <Link className="nav-link text-white fw-semibold" to="/">Home</Link>
             </li>
@@ -48,7 +44,7 @@ function Header() {
             </li>
             <li className="nav-item">
               <Link className="nav-link text-white fw-semibold" to="/checkout">
-              <FaShoppingCart className="me-1" /> My Cart ({cartItems.length})
+                <FaShoppingCart className="me-1" /> Cart ({cartItems.length})
               </Link>
             </li>
           </ul>
@@ -56,47 +52,38 @@ function Header() {
           {/* Search */}
           <form className="d-flex me-3">
             <input
-              className="form-control form-control-sm rounded-pill px-3"
-              type="search"
-              placeholder="Search products..."
-              aria-label="Search"
+              type="text"
+              className="form-control rounded-pill border-0 px-3"
+              placeholder="Search..."
+              style={{ minWidth: "200px", backgroundColor: "#1E293B", color: "white" }}
             />
-            <button className="btn btn-light ms-2 rounded-pill" type="submit">
+            <button type="submit" className="btn btn-light rounded-pill ms-2 px-3">
               <FaSearch />
             </button>
           </form>
 
-          {/* User Dropdown */}
+          {/* Account Dropdown */}
           <div className="dropdown me-3">
-            {isLoggedIn ? (
-              <>
-                <button
-                  className="btn btn-outline-light rounded-pill fw-semibold dropdown-toggle"
-                  data-bs-toggle="dropdown"
-                >
-                  <FaUserCircle className="me-1" /> {username}
-                </button>
-                <ul className="dropdown-menu dropdown-menu-end">
+            <button
+              className="btn btn-outline-light rounded-pill fw-semibold dropdown-toggle"
+              data-bs-toggle="dropdown"
+            >
+              <FaUserCircle className="me-1" /> {isLoggedIn ? username : 'Customer Panel'}
+            </button>
+            <ul className="dropdown-menu dropdown-menu-end shadow-sm">
+              {isLoggedIn ? (
+                <>
                   <li><Link className="dropdown-item" to="/customer/dashboard">Dashboard</Link></li>
                   <li><hr className="dropdown-divider" /></li>
-                  <li><Link className="dropdown-item text-danger" to="/customer/logout">Logout</Link>
-                  </li>
-                </ul>
-              </>
-            ) : (
-              <>
-                <button
-                  className="btn btn-outline-light rounded-pill fw-semibold dropdown-toggle"
-                  data-bs-toggle="dropdown"
-                >
-                  <FaUserCircle className="me-1" /> My Account
-                </button>
-                <ul className="dropdown-menu dropdown-menu-end">
+                  <li><Link className="dropdown-item text-danger" to="/customer/logout">Logout</Link></li>
+                </>
+              ) : (
+                <>
                   <li><Link className="dropdown-item" to="/customer/register">Register</Link></li>
                   <li><Link className="dropdown-item" to="/customer/login">Login</Link></li>
-                </ul>
-              </>
-            )}
+                </>
+              )}
+            </ul>
           </div>
 
           {/* Seller Panel */}
@@ -104,12 +91,12 @@ function Header() {
             <button className="btn btn-outline-light rounded-pill fw-semibold dropdown-toggle" data-bs-toggle="dropdown">
               Seller Panel
             </button>
-            <ul className="dropdown-menu dropdown-menu-end">
+            <ul className="dropdown-menu dropdown-menu-end shadow-sm">
               <li><Link className="dropdown-item" to="/seller/register">Register</Link></li>
               <li><Link className="dropdown-item" to="/seller/login">Login</Link></li>
               <li><hr className="dropdown-divider" /></li>
               <li><Link className="dropdown-item" to="/seller/dashboard">Dashboard</Link></li>
-              <li><a className="dropdown-item text-danger" href="#">Logout</a></li>
+              <li><Link className="dropdown-item text-danger" to="#">Logout</Link></li>
             </ul>
           </div>
         </div>

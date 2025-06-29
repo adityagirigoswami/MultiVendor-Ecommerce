@@ -3,7 +3,6 @@ import logo from "../logo.svg";
 import "../App.css";
 import Singleproduct from './singleproduct';
 
-
 function Home() {
   const products = [
     {
@@ -27,262 +26,114 @@ function Home() {
       image: "http://localhost:8000/media/product_imgs/5.jpg"
     },
   ];
-  
 
   return (
-    <main className="mt-3">
-      <section className="container mt-4">
-        {/* latest product  */}
-
+    <main className="pt-4" style={{ background: '#0d1117', color: '#c9d1d9' }}>
+      <section className="container">
+        {/* Latest Products */}
         <div className="container">
           <h3 className="fw-bold mb-4">
             Latest Products <Link to="/products"
-              className="float-end btn btn-dark">View All Products
+              className="float-end btn btn-outline-light">View All Products
               <i className="fa-solid fa-arrow-right-long ms-1"></i></Link>
           </h3>
           <div className="row mb-4">
-
-              {
-                products.map((product) => <Singleproduct product={product} />)
-              }
+            {products.map((product) => <Singleproduct product={product} />)}
           </div>
-          {/* latest product end  */}
         </div>
 
-        {/* Popular product  */}
-
+        {/* Popular Products */}
         <div className="container">
           <h3 className="fw-bold mb-4">
-            Popular Products <a href="#"
-              className="float-end btn btn-dark">View All Products
+            Popular Products <a href="#" className="float-end btn btn-outline-light">View All Products
               <i className="fa-solid fa-arrow-right-long ms-1"></i></a>
           </h3>
           <div className="row mb-4">
-
-            {/* Popular Product box */}
-            <div className="col-12 col-md-3 mb-4">
-              <div className="card" style={{ width: "18rem" }}>
-                <img className="card-img-top" src={logo} alt="Card cap" />
-                <div className="card-body">
-                  <h4 className="card-title">Product Title</h4>
-                  <div className="card-footer">
-                    Price: RS.500
+            {[...Array(4)].map((_, i) => (
+              <div className="col-12 col-md-3 mb-4" key={i}>
+                <div className="card shadow-lg border-0 hover-effect" style={{ backgroundColor: '#161b22', color: '#c9d1d9' }}>
+                  <img className="card-img-top" src={logo} alt="Card cap" />
+                  <div className="card-body">
+                    <h4 className="card-title">Product Title</h4>
+                    <div className="card-footer">
+                      Price: RS.500
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            {/* Popular Product box end */}
-            {/* Popular Product box */}
-            <div className="col-12 col-md-3 mb-4">
-              <div className="card" style={{ width: "18rem" }}>
-                <img className="card-img-top" src={logo} alt="Card cap" />
-                <div className="card-body">
-                  <h4 className="card-title">Product Title</h4>
-                  <div className="card-footer">
-                    Price: RS.500
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* Popular Product box end */}            {/* Popular Product box */}
-            <div className="col-12 col-md-3 mb-4">
-              <div className="card" style={{ width: "18rem" }}>
-                <img className="card-img-top" src={logo} alt="Card cap" />
-                <div className="card-body">
-                  <h4 className="card-title">Product Title</h4>
-                  <div className="card-footer">
-                    Price: RS.500
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* Popular Product box end */}            {/* Popular Product box */}
-            <div className="col-12 col-md-3 mb-4">
-              <div className="card" style={{ width: "18rem" }}>
-                <img className="card-img-top" src={logo} alt="Card cap" />
-                <div className="card-body">
-                  <h4 className="card-title">Product Title</h4>
-                  <div className="card-footer">
-                    Price: RS.500
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* Popular Product box end */}
-
-
-
-
+            ))}
           </div>
-          {/* Popular product end  */}
         </div>
 
-        {/* Popular Categories*/}
+        {/* Popular Categories */}
         <div className="container">
           <h3 className="fw-bold mb-4">
-            Popular Categories <a href="/categories"
-              className="float-end btn btn-dark">View All Categories
+            Popular Categories <a href="/categories" className="float-end btn btn-outline-light">View All Categories
               <i className="fa-solid fa-arrow-right-long ms-1"></i></a>
           </h3>
           <div className="row mb-4">
-
-            {/* Category box */}
-            <div className="col-12 col-md-3 mb-4">
-              <div className="card" style={{ width: "18rem" }}>
-                <img className="card-img-top" src={logo} alt="Card cap" />
-                <div className="card-body">
-                  <h4 className="card-title">Product Category</h4>
-                  <div className="card-footer">
-                    product download : 598
+            {[...Array(4)].map((_, i) => (
+              <div className="col-12 col-md-3 mb-4" key={i}>
+                <div className="card shadow-lg border-0 hover-effect" style={{ backgroundColor: '#161b22', color: '#c9d1d9' }}>
+                  <img className="card-img-top" src={logo} alt="Card cap" />
+                  <div className="card-body">
+                    <h4 className="card-title">Product Category</h4>
+                    <div className="card-footer">
+                      Product Downloads: 598
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            {/* Category box end */}
-
-            {/* Category box */}
-            <div className="col-12 col-md-3 mb-4">
-              <div className="card" style={{ width: "18rem" }}>
-                <img className="card-img-top" src={logo} alt="Card cap" />
-                <div className="card-body">
-                  <h4 className="card-title">Product Category</h4>
-                  <div className="card-footer">
-                    product download : 598
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* Category box end */}
-
-            {/* Category box */}
-            <div className="col-12 col-md-3 mb-4">
-              <div className="card" style={{ width: "18rem" }}>
-                <img className="card-img-top" src={logo} alt="Card cap" />
-                <div className="card-body">
-                  <h4 className="card-title">Product Category</h4>
-                  <div className="card-footer">
-                    product download : 598
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* Category box end */}
-
-            {/* Category box */}
-            <div className="col-12 col-md-3 mb-4">
-              <div className="card" style={{ width: "18rem" }}>
-                <img className="card-img-top" src={logo} alt="Card cap" />
-                <div className="card-body">
-                  <h4 className="card-title">Product Category</h4>
-                  <div className="card-footer">
-                    product download : 598
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* Category box end */}
+            ))}
           </div>
-          {/* Popular Categoy product end  */}
         </div>
 
-        {/* popular seller */}
+        {/* Popular Sellers */}
         <div className="container">
           <h3 className="fw-bold mb-4">
-            Popular Seller <a href="#"
-              className="float-end btn btn-dark">View All Seller
+            Popular Sellers <a href="#" className="float-end btn btn-outline-light">View All Sellers
               <i className="fa-solid fa-arrow-right-long ms-1"></i></a>
           </h3>
           <div className="row mb-4">
-
-            {/* Popular Seller box*/}
-            <div className="col-12 col-md-3 mb-4">
-              <div className="card" style={{ width: "18rem" }}>
-                <img className="card-img-top" src={logo} alt="Card cap" />
-                <div className="card-body">
-                  <h4 className="card-title">Seller Name</h4>
-                  <div className="card-footer">
-                    Categories: <a href="#">Python</a>, <a href="#">DJango</a>
+            {[...Array(3)].map((_, i) => (
+              <div className="col-12 col-md-3 mb-4" key={i}>
+                <div className="card shadow-lg border-0 hover-effect" style={{ backgroundColor: '#161b22', color: '#c9d1d9' }}>
+                  <img className="card-img-top" src={logo} alt="Card cap" />
+                  <div className="card-body">
+                    <h4 className="card-title">Seller Name</h4>
+                    <div className="card-footer">
+                      Categories: <a href="#">Tech</a>, <a href="#">More</a>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            {/* Popular Seller box end */}
-            {/* Popular Seller box*/}
-            <div className="col-12 col-md-3 mb-4">
-              <div className="card" style={{ width: "18rem" }}>
-                <img className="card-img-top" src={logo} alt="Card cap" />
-                <div className="card-body">
-                  <h4 className="card-title">Seller Name</h4>
-                  <div className="card-footer">
-                    Categories: <a href="#">Fastapi</a>, <a href="#">Flask</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* Popular Seller box end */}
-            {/* Popular Seller box*/}
-            <div className="col-12 col-md-3 mb-4">
-              <div className="card" style={{ width: "18rem" }}>
-                <img className="card-img-top" src={logo} alt="Card cap" />
-                <div className="card-body">
-                  <h4 className="card-title">Seller Name</h4>
-                  <div className="card-footer">
-                    Categories: <a href="#">React</a>, <a href="#">Node</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* Popular Seller box end */}
-
+            ))}
           </div>
-          {/* Popular Seller end  */}
         </div>
 
-        {/* customer rating and reviews */}
-   
-        <div id="carouselExampleIndicators" className="carousel slide mb-5 container bg-dark text-white p-5">
+        {/* Customer Reviews */}
+        <div id="carouselExampleIndicators" className="carousel slide mb-5 container p-5" style={{ backgroundColor: '#161b22' }}>
           <div className="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            {[0, 1, 2].map((index) => (
+              <button key={index} type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to={index} className={index === 0 ? "active" : ""} aria-label={`Slide ${index + 1}`}></button>
+            ))}
           </div>
           <div className="carousel-inner">
-            <div className="carousel-item active">
-              <figure className="text-center">
-                <blockquote className="blockquote">
-                  <p>A well-known quote, contained in a blockquote element.</p>
-                </blockquote>
-                <figcaption className="blockquote-footer">
-                  <i className="fa-solid fa-star text-warning"></i>
-                  <i className="fa-solid fa-star text-warning"></i>
-                  <i className="fa-solid fa-star text-warning"></i><cite title="Source Title">Source Title</cite>
-                </figcaption>
-              </figure>    </div>
-            <div className="carousel-item">
-              <figure className="text-center">
-                <blockquote className="blockquote">
-                  <p>first comment by aditya ji .</p>
-                </blockquote>
-                <figcaption className="blockquote-footer">
-                  <i class="fa-solid fa-star text-warning"></i>
-                  <i class="fa-solid fa-star text-warning"></i>
-                  <i class="fa-solid fa-star text-warning"></i>
-                  <i class="fa-solid fa-star text-warning"></i>
-                  <i class="fa-solid fa-star text-warning"></i> <cite title="Source Title">Source Title</cite>
-                </figcaption>
-              </figure>    </div>
-            <div className="carousel-item">
-              <figure className="text-center">
-                <blockquote className="blockquote">
-                  <p>osho the master of spirituality and philosophy</p>
-                </blockquote>
-                <figcaption className="blockquote-footer">
-                  <i class="fa-solid fa-star text-warning"></i>
-                  <i class="fa-solid fa-star text-warning"></i>
-                  <i class="fa-solid fa-star text-warning"></i>
-                  <i class="fa-solid fa-star text-warning"></i><cite title="Source Title">Source Title</cite>
-                </figcaption>
-              </figure>    </div>
+            {["A well-known quote.", "first comment by aditya ji.", "osho the master of spirituality and philosophy"].map((text, i) => (
+              <div className={`carousel-item ${i === 0 ? "active" : ""}`} key={i}>
+                <figure className="text-center">
+                  <blockquote className="blockquote">
+                    <p>{text}</p>
+                  </blockquote>
+                  <figcaption className="blockquote-footer">
+                    {[...Array(5)].map((_, j) => (
+                      <i className="fa-solid fa-star text-warning" key={j}></i>
+                    ))}
+                    <cite title="Source Title">Source Title</cite>
+                  </figcaption>
+                </figure>
+              </div>
+            ))}
           </div>
           <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
             <span className="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -294,31 +145,27 @@ function Home() {
           </button>
         </div>
 
-{/* pagination */}
-        <nav aria-label="Page navigation example">
-          <ul className="pagination">
+        {/* Pagination */}
+        {/* <nav aria-label="Page navigation example" className="mb-5">
+          <ul className="pagination justify-content-center">
             <li className="page-item">
-              <a className="page-link" href="#" aria-label="Previous">
+              <a className="page-link bg-dark text-light" href="#" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
-                <span class="sr-only">Previous</span>
               </a>
             </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a className="page-link" href="#" aria-label="Next">
+            <li className="page-item"><a className="page-link bg-dark text-light" href="#">1</a></li>
+            <li className="page-item"><a className="page-link bg-dark text-light" href="#">2</a></li>
+            <li className="page-item"><a className="page-link bg-dark text-light" href="#">3</a></li>
+            <li className="page-item">
+              <a className="page-link bg-dark text-light" href="#" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
-                <span class="sr-only">Next</span>
               </a>
             </li>
           </ul>
-        </nav>
+        </nav> */}
       </section>
     </main>
-
   );
 }
 
 export default Home;
-

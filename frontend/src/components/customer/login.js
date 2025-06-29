@@ -47,14 +47,14 @@ function Login() {
 
   return (
     <div className="d-flex justify-content-center align-items-center "
-      style={{ minHeight: "calc(90vh - 100px)", padding: "20px" }} >
-      <div className="card shadow-lg border-0 p-4" style={{ width: "100%", maxWidth: "400px" }}>
+      style={{minHeight: "calc(90vh - 100px)", padding: "20px" }} >
+      <div className="card shadow-lg border-0 p-4" style={{backgroundColor: "#111827" , width: "100%", maxWidth: "400px" }}>
         <h3 className="text-center mb-4 text-primary fw-bold">Welcome Back 👋</h3>
         <form onSubmit={handleSubmit}>
           {errorMsg && <p className="text-danger text-center">{errorMsg}</p>}
 
           <div className="mb-3">
-            <label htmlFor="username" className="form-label fw-semibold">Username</label>
+            <label htmlFor="username" className="form-label text-white fw-semibold">Username</label>
             <input
               type="text"
               className="form-control rounded-3"
@@ -68,7 +68,7 @@ function Login() {
           </div>
 
           <div className="mb-3">
-            <label htmlFor="password" className="form-label fw-semibold">Password</label>
+            <label htmlFor="password" className="form-label text-white fw-semibold">Password</label>
             <input
               type="password"
               className="form-control rounded-3"
@@ -94,7 +94,7 @@ function Login() {
             </button>
           </div>
 
-          <p className="text-center text-muted small">
+          <p className="text-center  small text-white">
             Don’t have an account? <a href="/customer/register" className="text-decoration-none">Register</a>
           </p>
         </form>

@@ -9,6 +9,9 @@ body {
   background: linear-gradient(135deg, #f5f7fa, #c3cfe2); /* Example gradient */
   background-attachment: fixed; /* Makes it stay during scroll */
   background-size: cover;
+  background-color: #0d1117 !important;
+  color: #c9d1d9;
+
   background-repeat: no-repeat;
   margin: 0;
   padding: 0;

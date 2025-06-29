@@ -1,0 +1,32 @@
+.sidebar-glass {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+  }
+  
+  .sidebar-link {
+    display: block;
+    padding: 12px 16px;
+    border-radius: 8px;
+    color: #ffffffcc;
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 6px;
+    transition: all 0.3s ease;
+    background: linear-gradient(90deg, rgba(40,40,40,0.6), rgba(30,30,30,0.4));
+  }
+  
+  .sidebar-link:hover {
+    background: rgba(0, 255, 255, 0.2);
+    color: #00ffe1;
+    transform: scale(1.02);
+  }
+  
+  .sidebar-link.active {
+    background: rgba(0, 255, 255, 0.4);
+    color: #00ffe1;
+    font-weight: bold;
+    border-left: 4px solid #00ffe1;
+  }
+  

@@ -7,8 +7,11 @@ const AuthProvider = ({ children }) => {
   const [username, setUsername] = useState(() => localStorage.getItem("username") || "");
   const [cartItems, setCartItems] = useState(() => JSON.parse(localStorage.getItem("cart")) || []);
 
-  const clearCart = () => setCartItems([]);
-
+  const clearCart = () => {
+    setCartItems([]);
+    localStorage.removeItem("cart");  // 🔥 Important line to clear persistent data
+  };
+  
   useEffect(() => {
     setIsLoggedIn(!!localStorage.getItem("access"));
     setUsername(localStorage.getItem("username") || "");

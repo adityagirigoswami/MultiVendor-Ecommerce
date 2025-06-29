@@ -46,60 +46,59 @@ import { setAuthContext } from "./utils/secureFetch";
 
 
 function App() {
-  
   const authContext = useContext(AuthContext);
 
   useEffect(() => {
     setAuthContext(authContext); // Just once
   }, [authContext]);
+
   return (
-    
-    <>
-
+    <div className="d-flex flex-column min-vh-100" style={{ backgroundColor: '#0d1117', color: '#c9d1d9' }}>
       <Header />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/categories' element={<Categories />} />
-        <Route path='/products' element={<AllProducts />} />
-        <Route path='/category/:category_slug/:category_id' element={<ProductCategory />} />
-        <Route path='/product/:product_slug/:product_id' element={<ProductDetail />} />
-        <Route path='/checkout' element={<Checkout />} />
-        <Route path='/order/success' element={<OrderSuccess />} />
-        <Route path='/order/failure' element={<OrderFailure />} />
- 
-        {/* customer panel */}
-        <Route path='/customer/login' element={<Login  />} />
-        <Route path='/customer/logout' element={<Logout  />} />
-        <Route path='/customer/register' element={<Register />} />
-        <Route path='/customer/dashboard' element={<Dashboard />} />
-        <Route path='/customer/orders' element={<Orders />} />
-        <Route path='/customer/wishlist' element={<Wishlist />} />
-        <Route path='/customer/profile' element={<Profile />} />
-        <Route path='/customer/change-password' element={<ChangePassword />} />
-        <Route path='/customer/address-list' element={<AddressList />} />
-        <Route path='/customer/add-address' element={<AddAddress />} />
 
+      <div className="flex-grow-1">
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/categories' element={<Categories />} />
+          <Route path='/products' element={<AllProducts />} />
+          <Route path='/category/:category_slug/:category_id' element={<ProductCategory />} />
+          <Route path='/product/:product_slug/:product_id' element={<ProductDetail />} />
+          <Route path='/checkout' element={<Checkout />} />
+          <Route path='/order/success' element={<OrderSuccess />} />
+          <Route path='/order/failure' element={<OrderFailure />} />
 
-        <Route path="/order-confirmation" element={<OrderConfirmation />} />
+          {/* customer panel */}
+          <Route path='/customer/login' element={<Login />} />
+          <Route path='/customer/logout' element={<Logout />} />
+          <Route path='/customer/register' element={<Register />} />
+          <Route path='/customer/dashboard' element={<Dashboard />} />
+          <Route path='/customer/orders' element={<Orders />} />
+          <Route path='/customer/wishlist' element={<Wishlist />} />
+          <Route path='/customer/profile' element={<Profile />} />
+          <Route path='/customer/change-password' element={<ChangePassword />} />
+          <Route path='/customer/address-list' element={<AddressList />} />
+          <Route path='/customer/add-address' element={<AddAddress />} />
 
+          <Route path="/order-confirmation" element={<OrderConfirmation />} />
 
-        {/* seller panel  */}
-        <Route path='/seller/login' element={<SellerLogin  />} />
-        <Route path='/seller/register' element={<SellerRegister/>} />
-        <Route path='/seller/dashboard' element={<SellerDashboard />} />
-        <Route path='/seller/products' element={<SellerProduct />} />
-        <Route path='/seller/add-products' element={<SellerAddProducts />} />
-        <Route path='/seller/orders' element={<SellerOrders />} />
-        <Route path='/seller/customers' element={<SellerCustomer />} />
-        <Route path='/seller/reports' element={<SellerReport />} />
-        <Route path='/seller/profile' element={<SellerProfile />} />
-        <Route path='/seller/change-password' element={<SellerChangePassword />} />
-        
-      </Routes>
+          {/* seller panel */}
+          <Route path='/seller/login' element={<SellerLogin />} />
+          <Route path='/seller/register' element={<SellerRegister />} />
+          <Route path='/seller/dashboard' element={<SellerDashboard />} />
+          <Route path='/seller/products' element={<SellerProduct />} />
+          <Route path='/seller/add-products' element={<SellerAddProducts />} />
+          <Route path='/seller/orders' element={<SellerOrders />} />
+          <Route path='/seller/customers' element={<SellerCustomer />} />
+          <Route path='/seller/reports' element={<SellerReport />} />
+          <Route path='/seller/profile' element={<SellerProfile />} />
+          <Route path='/seller/change-password' element={<SellerChangePassword />} />
+        </Routes>
+      </div>
+
       <Footer />
-     
-    </>
+    </div>
   );
 }
+
 
 export default App;

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "./contexts/AuthContext";
 import secureFetch from "../utils/secureFetch";
@@ -76,79 +76,72 @@ function Checkout() {
   };
 
   return (
-    <div className="container mt-4">
-      <h3 className="mb-4">All Items ({cartItems.length})</h3>
+    <div className="container my-5">
+      <h3 className="mb-4 fw-bold text-center">🛒 Your Cart ({cartItems.length} item{cartItems.length !== 1 ? "s" : ""})</h3>
+
       {cartItems.length === 0 ? (
-        <div className="alert alert-warning text-center fw-semibold">
-          🛒 Your cart is empty.
+        <div className="alert text-center" style={{backgroundColor: "#111827" }}>
+          Your cart is empty.
           <div className="mt-3">
-            <Link to="/categories" className="btn btn-primary">
+            <Link to="/categories" className="btn btn-outline-primary">
               Browse Products
             </Link>
           </div>
         </div>
       ) : (
-        <div className="row">
-          <div className="col-md-8 col-12">
-            <div className="table-responsive">
-              <table className="table table-bordered">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {cartItems.map((item, index) => (
-                    <tr key={item.id}>
-                      <td>{index + 1}</td>
-                      <td>
-                        <Link to={`/product/${item.slug}/${item.id}`}>
-                          <img
-                            className="img-thumbnail"
-                            width="80"
-                            src={item.image || "https://via.placeholder.com/80"}
-                            alt={item.title}
-                          />
-                          <p>{item.title}</p>
-                        </Link>
-                      </td>
-                      <td>Rs. {item.price}</td>
-                      <td>
-                        <button
-                          className="btn btn-warning btn-sm"
-                          onClick={() => removeFromCart(item.id)}
-                        >
-                          Remove
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <th></th>
-                    <th>Total</th>
-                    <th>Rs. {totalPrice}</th>
-                    <th></th>
-                  </tr>
-                  <tr>
-                    <td colSpan="4" align="center">
-                      <Link to="/categories" className="btn btn-secondary">
-                        Continue Shopping
+        <div className="row g-4">
+          <div className="col-lg-8">
+            {cartItems.map((item, index) => (
+              <div className="card shadow-sm mb-3" key={item.id} style={{backgroundColor: "#111827" }}>
+                <div className="row g-0">
+                  <div className="col-md-3 d-flex align-items-center justify-content-center">
+                    <img
+                      src={item.image || "https://via.placeholder.com/80"}
+                      alt={item.title}
+                      className="img-fluid p-2"
+                      style={{ maxHeight: "100px", objectFit: "contain" }}
+                    />
+                  </div>
+                  <div className="col-md-6 d-flex flex-column justify-content-center">
+                    <div className="card-body">
+                      <h5 className="card-title text-white mb-1">{item.title}</h5>
+                      <p className="text-warning mb-2">Rs. {item.price}</p>
+                      <Link to={`/product/${item.slug}/${item.id}`} className="text-decoration-none text-primary small">
+                        View Details
                       </Link>
-                      <button
-                        className="btn btn-success ms-1"
-                        onClick={handlePlaceOrder}
-                      >
-                        Place Order
-                      </button>
-                    </td>
-                  </tr>
-                </tfoot>
-              </table>
+                    </div>
+                  </div>
+                  <div className="col-md-3 d-flex align-items-center justify-content-center">
+                    <button className="btn btn-outline-danger btn-sm" onClick={() => removeFromCart(item.id)}>
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="col-lg-4">
+            <div className="card shadow">
+              <div className="card-body border"style={{backgroundColor: "#111827" }}>
+                <h5 className="fw-bold text-white mb-3" >🧾 Summary</h5>
+                <ul className="list-group list-group-flush">
+                  <li className="list-group-item d-flex justify-content-between">
+                    <span>Total Items:</span> <span>{cartItems.length}</span>
+                  </li>
+                  <li className="list-group-item d-flex justify-content-between">
+                    <span>Total Price:</span> <span>Rs. {totalPrice}</span>
+                  </li>
+                </ul>
+                <div className="d-grid mt-4">
+                  <button className="btn btn-success mb-2" onClick={handlePlaceOrder}>
+                    Place Order
+                  </button>
+                  <Link to="/categories" className="btn btn-outline-secondary">
+                    Continue Shopping
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>

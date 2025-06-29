@@ -1,22 +1,43 @@
 function Footer() {
-    return (
-<footer class="d-flex flex-wrap justify-content-between align-items-center mb-3 border-top p-3 mt-3">
-            <div class="col-md-4 d-flex align-items-center m-3">
-              <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1" aria-label="Bootstrap">
-                Python Market Place
-              </a>
-              <span class="mb-3 mb-md-0 text-body-secondary">© 2025 Company, Inc</span>
-            </div>
-        
-            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-              <li class="ms-3"><a class="text-body-secondary" href="#" aria-label="Instagram"><i class="fa-brands fa-facebook"></i></a></li>
-              <li class="ms-3"><a class="text-body-secondary" href="#" aria-label="Facebook"><i class="fa-brands fa-instagram"></i></a></li>
-              <li class="ms-3"><a class="text-body-secondary" href="#" aria-label="Facebook"><i class="fa-brands fa-twitter"></i></a></li>
-        
-            </ul>
-          </footer>
+  return (
+    <footer
+      className="d-flex flex-wrap justify-content-between align-items-center p-4 mt-4"
+      style={{
+        backgroundColor: '#0d1117',
+        color: '#c9d1d9',
+        // borderTop: '1px solid #30363d',
+      }}
+    >
+      <div className="col-md-6 d-flex align-items-center px-3">
+      <img
+            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+            alt="Python"
+            width="40"
+            height="40"
+          />
+        <span className="fs-5 fw-semibold">Python Market Place</span>
+        <span className="ms-3 small text">© 2025 Company, Inc.</span>
+      </div>
 
-    );
+      <ul className="nav col-md-6 justify-content-end list-unstyled d-flex px-3">
+        <li className="ms-3">
+          <a className="text-light fs-5" href="#" aria-label="Facebook">
+            <i className="fa-brands fa-facebook"></i>
+          </a>
+        </li>
+        <li className="ms-3">
+          <a className="text-light fs-5" href="#" aria-label="Instagram">
+            <i className="fa-brands fa-instagram"></i>
+          </a>
+        </li>
+        <li className="ms-3">
+          <a className="text-light fs-5" href="#" aria-label="Twitter">
+            <i className="fa-brands fa-twitter"></i>
+          </a>
+        </li>
+      </ul>
+    </footer>
+  );
 }
 
 export default Footer;
