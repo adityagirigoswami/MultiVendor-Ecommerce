@@ -35,7 +35,7 @@ class Product(models.Model):
     tags=models.TextField(null=True)
     image=models.ImageField(upload_to='product_imgs/' , null=True)
     demo_url = models.URLField(null=True , blank=True)
-    file = models.FileField(upload_to='scripts/', null=True, blank=True)  # ✅ Add this
+    file = models.FileField(upload_to='scripts/', null=True, blank=True)
 
     def __str__(self):
         return self.title
