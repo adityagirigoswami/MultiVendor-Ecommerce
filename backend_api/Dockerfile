@@ -1,19 +1,27 @@
-# Use official Python image
-FROM python:3.10
+# Stage 1: build with dependencies
+FROM python:3.10-slim AS builder
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-
-# Set working directory
 WORKDIR /app
 
-# Install dependencies
-COPY requirements.txt .
-RUN pip install --upgrade pip && pip install -r requirements.txt
+RUN apt update && apt install -y gcc libpq-dev build-essential
 
-# Copy backend code
+COPY requirements.txt .
+RUN pip install --upgrade pip
+RUN pip install --user -r requirements.txt
+
+# Stage 2: slim runtime
+FROM python:3.10-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV PATH="/root/.local/bin:$PATH"
+
+WORKDIR /app
+
+# install runtime dependencies
+RUN apt update && apt install -y libpq-dev
+
+COPY --from=builder /root/.local /root/.local
 COPY . .
 
-# Run Django dev server
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

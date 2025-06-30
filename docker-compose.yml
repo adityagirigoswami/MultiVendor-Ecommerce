@@ -1,37 +1,70 @@
-services:
-  backend:
-    build:
-      context: ./backend_api
-    volumes:
-      - ./backend_api:/app
-    ports:
-      - "8000:8000"
-    depends_on:
-      - db
+version: "3.9"
 
-  frontend:
-    build:
-      context: ./frontend
-    volumes:
-      - ./frontend:/app
-    ports:
-      - "3000:3000"
-    stdin_open: true
-    tty: true
-
- 
-  db:
-    image: postgres:14
-    restart: always
-    environment:
-      POSTGRES_DB: MultiVendor_ecom
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 2204
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+############################
+#  NETWORK AND VOLUMES
+############################
+networks:
+  app-net:
 
 volumes:
   postgres_data:
 
+############################
+#  SERVICES
+############################
+services:
+  # === PostgreSQL ==========================================
+  db:
+    image: postgres:14-alpine               # small, efficient image
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: MultiVendor_ecom
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 2204
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:                            # let others wait until PG is ready
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app-net
+    ports:
+      - "5432:5432"                         # optional; expose only if you need psql from host
+
+  # === Django Backend ======================================
+  backend:
+    build:
+      context: ./backend_api                # Dockerfile in backend_api/
+    depends_on:
+      db:
+        condition: service_healthy          # wait for Postgres health check
+    environment:
+      #  Django → Postgres connection
+      DB_NAME: MultiVendor_ecom
+      DB_USER: postgres
+      DB_PASSWORD: 2204
+      DB_HOST: db
+      DB_PORT: 5432
+      #  Any other env vars (DJANGO_DEBUG, SECRET_KEY, etc.) go here
+    volumes:
+      - ./backend_api:/app                  # hot‑reload in dev; remove in production
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    networks:
+      - app-net
+
+  # === React Frontend (static, served by Nginx) ============
+  frontend:
+    build:
+      context: ./frontend                   # Dockerfile in frontend/ does multi‑stage build
+    depends_on:
+      backend:
+        condition: service_started
+    ports:
+      - "3000:80"                           # host:container
+    restart: unless-stopped
+    networks:
+      - app-net
