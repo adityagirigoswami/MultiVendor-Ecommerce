@@ -1,6 +1,31 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "./contexts/AuthContext"; // Adjust path if needed
 
 function SingleRelatedProduct({ product }) {
+  const {
+    isLoggedIn,
+    addToCart,
+    addToWishlist,
+    removeFromWishlist,
+  } = useContext(AuthContext);
+
+  const handleAddToCart = () => {
+    if (!isLoggedIn) {
+      alert("Please login to add items to cart.");
+      return;
+    }
+    addToCart(product);
+  };
+
+  const handleAddToWishlist = () => {
+    if (!isLoggedIn) {
+      alert("Please login to add to wishlist.");
+      return;
+    }
+    addToWishlist(product.id);
+  };
+
   return (
     <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
       <div
@@ -83,6 +108,7 @@ function SingleRelatedProduct({ product }) {
             title="Add to Cart"
             className="btn btn-dark border-light shadow-sm rounded-circle d-flex justify-content-center align-items-center"
             style={{ width: "45px", height: "45px" }}
+            onClick={handleAddToCart}
           >
             <i className="fa-solid fa-cart-plus text-success"></i>
           </button>
@@ -91,6 +117,7 @@ function SingleRelatedProduct({ product }) {
             title="Add to Wishlist"
             className="btn btn-dark border-light shadow-sm rounded-circle d-flex justify-content-center align-items-center"
             style={{ width: "45px", height: "45px" }}
+            onClick={handleAddToWishlist}
           >
             <i className="fa-solid fa-heart text-danger"></i>
           </button>

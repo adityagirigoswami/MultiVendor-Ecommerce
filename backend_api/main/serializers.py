@@ -112,11 +112,20 @@ class CustomerDetailSerializer(serializers.ModelSerializer):
 
 
 
+# serializers.py
 class WishlistSerializer(serializers.ModelSerializer):
-    product = ProductDetailSerializer()  # nested product data
+    # write‑only field the client will send
+    product_id = serializers.PrimaryKeyRelatedField(
+        queryset=models.Product.objects.all(),
+        source="product",           # tells DRF to save to the 'product' FK
+        write_only=True,
+    )
+    # read‑only nested product for responses
+    product = ProductListSerializer(read_only=True)
+
     class Meta:
         model = models.Wishlist
-        fields = ['id', 'product', 'added_on']  # no need to expose customer here
+        fields = ["id", "product", "product_id"]
 
                 
 class OrderItemSerializer(serializers.ModelSerializer):

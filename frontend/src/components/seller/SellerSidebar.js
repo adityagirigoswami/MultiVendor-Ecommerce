@@ -26,37 +26,37 @@ function SellerSidebar() {
         ➕ Add Product
       </Link>
       <Link
-        to="/seller/orders"
+        // to="/seller/orders"
         className={`sidebar-link ${isActive("/seller/orders") ? "active" : ""}`}
       >
         📦 Orders
       </Link>
       <Link
-        to="/seller/customers"
+        // to="/seller/customers"
         className={`sidebar-link ${isActive("/seller/customers") ? "active" : ""}`}
       >
         👥 Customers
       </Link>
       <Link
-        to="/seller/reports"
+        // to="/seller/reports"
         className={`sidebar-link ${isActive("/seller/reports") ? "active" : ""}`}
       >
         📊 Reports
       </Link>
       <Link
-        to="/seller/profile"
+        // to="/seller/profile"
         className={`sidebar-link ${isActive("/seller/profile") ? "active" : ""}`}
       >
         👤 Profile
       </Link>
       <Link
-        to="/seller/change-password"
+        // to="/seller/change-password"
         className={`sidebar-link ${isActive("/seller/change-password") ? "active" : ""}`}
       >
         🔒 Change Password
       </Link>
       <Link
-        to="/seller/logout"
+        // to="/seller/logout"
         className="sidebar-link text-danger fw-bold"
       >
         🚪 Logout

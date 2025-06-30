@@ -26,19 +26,19 @@ function Sidebar() {
         💖 Wishlist
       </Link>
       <Link
-        to="/customer/profile"
+        to=""
         className={`sidebar-link ${isActive("/customer/profile") ? "active" : ""}`}
       >
         👤 Profile
       </Link>
       <Link
-        to="/customer/change-password"
+        to=""
         className={`sidebar-link ${isActive("/customer/change-password") ? "active" : ""}`}
       >
         🔒 Change Password
       </Link>
       <Link
-        to="/customer/address-list"
+        to=""
         className={`sidebar-link ${isActive("/customer/address-list") ? "active" : ""}`}
       >
         🏠 Addresses

@@ -81,9 +81,9 @@ function Wishlist() {
               >
                 <div className="card-header border-bottom border-warning d-flex justify-content-between align-items-center">
                   <strong>⭐ {item.product.title}</strong>
-                  <span className="small">
+                  {/* <span className="small">
                     Added on: {new Date(item.added_on).toLocaleDateString()}
-                  </span>
+                  </span> */}
                 </div>
 
                 <div className="card-body">

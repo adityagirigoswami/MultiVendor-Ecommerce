@@ -26,7 +26,6 @@ function SearchResults() {
     <div
       className="container-fluid px-4 py-4"
       style={{
-        background: "linear-gradient(to right, #0f2027, #203a43, #2c5364)",
         minHeight: "100vh",
         color: "#fff",
       }}
@@ -63,10 +62,10 @@ function SearchResults() {
                     marginRight: "20px",
                   }}
                 />
-                <div className="flex-grow-1">
+                <div className="flex-grow-1 text-white">
                   <h5 className="mb-1">{p.title}</h5>
                   <p className="mb-1 text-info">₹{p.price}</p>
-                  <p className="small text-muted">{p.detail.slice(0, 80)}…</p>
+                  <p className="small ">{p.detail}</p>
                 </div>
                 <Link
                   to={`/product/${p.slug}/${p.id}`}

@@ -104,9 +104,10 @@ const AuthProvider = ({ children }) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${access}`,
       },
-      body: JSON.stringify({ product: productId }),
+      body: JSON.stringify({ product_id: productId }),   // ← new key
     });
   };
+  
   
   const removeFromWishlist = async (wishlistId) => {
     const access = localStorage.getItem("access");
