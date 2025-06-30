@@ -40,7 +40,7 @@ function Dashboard() {
   }, []);
 
   return (
-    <div className="container-fluid px-4 py-4" style={{ background: "linear-gradient(to right, #0f2027, #203a43, #2c5364)", minHeight: "100vh", color: "#fff" }}>
+    <div className="container-fluid px-4 py-4" style={{ minHeight: "100vh", color: "#fff" }}>
       <div className="row">
         <div className="col-md-3 col-12 mb-3">
           <Sidebar />

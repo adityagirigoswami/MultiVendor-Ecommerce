@@ -1,124 +1,129 @@
 import { useEffect, useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import SellerSidebar from "./SellerSidebar";
 import { AuthContext } from "../contexts/AuthContext";
 
 function SellerProduct() {
   const [products, setProducts] = useState([]);
   const { refreshAccessToken, logout } = useContext(AuthContext);
-  const navigate = useNavigate();
+
+  // backend base — change if you deploy elsewhere
+  const BACKEND = "http://127.0.0.1:8000";
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    (async () => {
       const access = await refreshAccessToken();
-
-      if (!access) {
-        console.warn("Access token is null. Logging out.");
-        logout();
-        return;
-      }
+      if (!access) return logout();
 
       try {
-        const res = await fetch("http://127.0.0.1:8000/api/vendor/products/", {
+        const res = await fetch(`${BACKEND}/api/vendor/products/`, {
           headers: { Authorization: `Bearer ${access}` },
         });
-
-        if (res.ok) {
-          const data = await res.json();
-          setProducts(data);
-        } else {
-          console.warn("Failed to fetch vendor products. Logging out.");
-          logout();
-        }
-      } catch (err) {
-        console.error("Error fetching products:", err);
+        res.ok ? setProducts(await res.json()) : logout();
+      } catch (e) {
+        console.error(e);
         logout();
       }
-    };
-
-    fetchProducts();
+    })();
   }, []);
 
-  const handleDelete = async (productId) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this product?");
-    if (!confirmDelete) return;
-
+  const handleDelete = async (id) => {
+    if (!window.confirm("Delete this product?")) return;
     const access = await refreshAccessToken();
     if (!access) return;
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/vendor/products/${productId}/delete/`, {
+      const res = await fetch(`${BACKEND}/api/vendor/products/${id}/delete/`, {
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${access}`,
-        },
+        headers: { Authorization: `Bearer ${access}` },
       });
-
-      if (res.status === 204) {
-        alert("Product deleted successfully");
-        setProducts(products.filter((p) => p.id !== productId));
-      } else {
-        alert("Failed to delete product");
-      }
-    } catch (err) {
-      console.error("Delete failed:", err);
+      res.status === 204
+        ? setProducts(products.filter((p) => p.id !== id))
+        : alert("Failed to delete");
+    } catch (e) {
+      console.error(e);
       alert("Something went wrong");
     }
   };
 
+  const getImageUrl = (imgPath) =>
+    imgPath.startsWith("http") ? imgPath : `${BACKEND}${imgPath}`;
+
   return (
-    <div className="container mt-4">
+    <div
+      className="container-fluid px-4 py-4"
+      style={{
+        minHeight: "100vh",
+        color: "#fff",
+      }}
+    >
       <div className="row">
-        <div className="col-md-3 col-12 mb-2">
+        <div className="col-md-3 col-12 mb-3">
           <SellerSidebar />
         </div>
-        <div className="col-md-9 col-12 mb-2">
-          <div className="row">
-            <div className="col-12 mb-2">
-              <Link to="/seller/add-products" className="btn btn-primary float-end">
-                <i className="fa fa-plus-circle"></i> Add Products
-              </Link>
+
+        <div className="col-md-9 col-12 mb-3">
+          <div className="d-flex justify-content-between align-items-center mb-4">
+            <h2 style={{ color: "#00e6e6" }}>🧾 Manage Products</h2>
+            <Link to="/seller/add-products" className="btn btn-primary shadow">
+              <i className="fa fa-plus-circle me-1" /> Add Product
+            </Link>
+          </div>
+
+          {products.length === 0 ? (
+            <p className="text-center">No products found.</p>
+          ) : (
+            <div className="d-flex flex-column gap-3">
+              {products.map((p) => (
+                <div
+                  key={p.id}
+                  className="card shadow border-0"
+                  style={{
+                    backgroundColor: "#1f2937",
+                    borderRadius: "15px",
+                    color: "#fff",
+                  }}
+                >
+                  <div className="card-body d-flex align-items-center">
+                    {/* image */}
+                    <img
+                      src={getImageUrl(p.image)}
+                      alt={p.title}
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        objectFit: "cover",
+                        borderRadius: "10px",
+                        marginRight: "20px",
+                      }}
+                    />
+
+                    {/* info */}
+                    <div className="flex-grow-1">
+                      <h5 className="mb-1">{p.title}</h5>
+                      <p className="mb-0 text-info">₹{p.price}</p>
+                    </div>
+
+                    {/* actions */}
+                    <div className="text-end">
+                      <Link
+                        to={`/product/${p.slug}/${p.id}`}
+                        className="btn btn-info btn-sm me-2"
+                      >
+                        View
+                      </Link>
+                      <button
+                        onClick={() => handleDelete(p.id)}
+                        className="btn btn-danger btn-sm"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
-          <div className="table-responsive">
-            <table className="table table-bordered text-white">
-              <thead className="bg-dark">
-                <tr>
-                  <th>#</th>
-                  <th>Product</th>
-                  <th>Price</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {products.length === 0 ? (
-                  <tr>
-                    <td colSpan="5" className="text-center">No products found.</td>
-                  </tr>
-                ) : (
-                  products.map((product, index) => (
-                    <tr key={product.id}>
-                      <td>{index + 1}</td>
-                      <td>{product.title}</td>
-                      <td>₹{product.price}</td>
-                      <td>Published</td>
-                      <td>
-                        <Link to={`/product/${product.slug}/${product.id}`} className="btn btn-info btn-sm me-1">View</Link>
-                        <Link to={`/seller/edit-product/${product.id}`} className="btn btn-primary btn-sm me-1">Edit</Link>
-                        <button
-                          className="btn btn-danger btn-sm"
-                          onClick={() => handleDelete(product.id)}
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
+          )}
         </div>
       </div>
     </div>

@@ -68,7 +68,7 @@ function SellerLogin() {
     <div className="d-flex justify-content-center align-items-center"
       style={{ minHeight: "calc(90vh - 100px)", padding: "20px" }} >
       <div className="card shadow-lg border-0 p-4" style={{ backgroundColor: "#111827", width: "100%", maxWidth: "400px" }}>
-        <h3 className="text-center mb-4 text-primary fw-bold">Vendor Login 🧑‍💻</h3>
+        <h3 className="text-center mb-4 text-warning fw-bold">Vendor Login 🧑‍💻</h3>
         <form onSubmit={handleSubmit}>
           {errorMsg && <p className="text-danger text-center">{errorMsg}</p>}
 
@@ -101,7 +101,7 @@ function SellerLogin() {
           </div>
 
           <div className="d-grid mb-3">
-            <button type="submit" className="btn btn-primary fw-bold" disabled={loading}>
+            <button type="submit" className="btn btn-warning fw-bold" disabled={loading}>
               {loading ? (
                 <>
                   <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>

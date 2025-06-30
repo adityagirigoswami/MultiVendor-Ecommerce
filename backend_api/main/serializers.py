@@ -113,6 +113,7 @@ class CustomerDetailSerializer(serializers.ModelSerializer):
 
 
 class WishlistSerializer(serializers.ModelSerializer):
+    product = ProductDetailSerializer()  # nested product data
     class Meta:
         model = models.Wishlist
         fields = ['id', 'product', 'added_on']  # no need to expose customer here

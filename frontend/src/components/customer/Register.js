@@ -38,7 +38,7 @@ function Register() {
   return (
     <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "calc(90vh - 100px)", padding: "20px" }}>
       <div className="card shadow p-4 border-0" style={{backgroundColor: "#111827", width: "100%", maxWidth: "500px" }}>
-        <h3 className="text-center mb-3 text-success fw-bold">Register</h3>
+        <h3 className="text-center mb-3 text-warning fw-bold">Register</h3>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="first_name" className="form-label text-white fw-semibold">First Name</label>
@@ -71,7 +71,7 @@ function Register() {
           </div>
 
           <div className="d-grid">
-            <button type="submit" className="btn btn-success fw-bold">Register</button>
+            <button type="submit" className="btn btn-warning fw-bold">Register</button>
           </div>
         </form>
       </div>

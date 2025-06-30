@@ -106,3 +106,8 @@ function SingleRelatedProduct({ product }) {
 }
 
 export default SingleRelatedProduct;
+
+
+
+
+

@@ -64,7 +64,7 @@ function Header() {
             {/* Customer Panel */}
             <div className="dropdown me-3">
               <button
-                className="btn btn-outline-light rounded-pill fw-semibold dropdown-toggle"
+                className="btn btn-outline-light rounded-pill dropdown-toggle"
                 data-bs-toggle="dropdown"
               >
                 <FaUserCircle className="me-1" /> 
@@ -88,8 +88,8 @@ function Header() {
 
             {/* Seller Panel */}
             <div className="dropdown">
-              <button className="btn btn-outline-light rounded-pill fw-semibold dropdown-toggle" data-bs-toggle="dropdown">
-                {isVendorLoggedIn ? `${username} (Vendor)` : "Seller Panel"}
+              <button className="btn btn-outline-light rounded-pill  dropdown-toggle" data-bs-toggle="dropdown">
+                {isVendorLoggedIn ? `${username}` : "Seller Panel"}
               </button>
               <ul className="dropdown-menu dropdown-menu-end shadow-sm">
                 {isVendorLoggedIn ? (

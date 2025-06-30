@@ -55,7 +55,6 @@ function Orders() {
     <div
       className="container-fluid py-4"
       style={{
-        background: "linear-gradient(to right, #0f2027, #203a43, #2c5364)",
         color: "#fff",
         minHeight: "100vh",
       }}

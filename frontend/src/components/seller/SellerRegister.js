@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SellerRegister() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -8,91 +10,65 @@ function SellerRegister() {
     address: "",
   });
 
-  const [message, setMessage] = useState("");
-
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.id]: e.target.value,
-    });
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/vendor/signup/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-    const response = await fetch("http://127.0.0.1:8000/api/vendor/signup/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
-
-    if (response.ok) {
-      setMessage("✅ Registered successfully!");
-      setFormData({ username: "", email: "", password: "", address: "" });
-    } else {
-      const errorData = await response.json();
-      setMessage("❌ " + JSON.stringify(errorData));
+      if (response.ok) {
+        alert("✅ Registered as Seller Successfully!");
+        setFormData({ username: "", email: "", password: "", address: "" });
+        navigate("/vendor/login");
+      } else {
+        const errorData = await response.json();
+        alert("❌ " + JSON.stringify(errorData));
+      }
+    } catch (err) {
+      console.error("Registration error:", err.message);
+      alert("❌ Registration failed.");
     }
   };
 
   return (
-    <div className="container mt-4">
-      <div className="row">
-        <div className="col-md-8 col-12 offset-2">
-          <div className="card shadow">
-            <h4 className="card-header bg-dark text-white">Vendor Register</h4>
-            <div className="card-body">
-              {message && <div className="alert alert-info">{message}</div>}
-              <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                  <label htmlFor="username" className="form-label">Username</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="username"
-                    value={formData.username}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="address" className="form-label">Address</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="address"
-                    value={formData.address}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="email" className="form-label">Email</label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="password" className="form-label">Password</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <button type="submit" className="btn btn-primary">Register as Vendor</button>
-              </form>
-            </div>
+    <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "calc(90vh - 100px)", padding: "20px" }}>
+      <div className="card shadow p-4 border-0" style={{ backgroundColor: "#111827", width: "100%", maxWidth: "500px" }}>
+        <h3 className="text-center mb-3 text-warning fw-bold">Seller Registration</h3>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label htmlFor="username" className="form-label text-white fw-semibold">Username</label>
+            <input type="text" className="form-control rounded-3" name="username" value={formData.username} onChange={handleChange} required />
           </div>
-        </div>
+
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label text-white fw-semibold">Email</label>
+            <input type="email" className="form-control rounded-3" name="email" value={formData.email} onChange={handleChange} required />
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label text-white fw-semibold">Password</label>
+            <input type="password" className="form-control rounded-3" name="password" value={formData.password} onChange={handleChange} required />
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="address" className="form-label text-white fw-semibold">Address</label>
+            <input type="text" className="form-control rounded-3" name="address" value={formData.address} onChange={handleChange} required />
+          </div>
+
+          <div className="d-grid">
+            <button type="submit" className="btn btn-warning fw-bold">Register as Seller</button>
+          </div>
+        </form>
       </div>
     </div>
   );
