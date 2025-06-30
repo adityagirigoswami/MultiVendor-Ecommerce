@@ -55,7 +55,9 @@ urlpatterns = [
     path('products/' , views.ProductList.as_view()),
     path('product/<int:pk>/' , views.ProductDetail.as_view()),
     path('related-product/<int:pk>/' , views.RelatedProductList.as_view()),
-    
+    path('products/latest/', views.LatestProductListView.as_view()),
+    path('products/expensive/', views.HighPriceProductListView.as_view(), name='expensive-products'),
+
     path('wishlist/', views.WishlistListCreateView.as_view(), name='wishlist'),
     path('wishlist/<int:pk>/', views.WishlistDeleteView.as_view(), name='wishlist-delete'),
 
@@ -63,7 +65,7 @@ urlpatterns = [
     path('categories/' , views.CategoryList.as_view()),
     path('category/<int:pk>/' , views.CategoryDetail.as_view()),
     
-    #customer urls
+    #customer urls 
     path('customers/' , views.CustomerList.as_view()),
     path('customer/<int:pk>/' , views.CustomerDetail.as_view()),
     

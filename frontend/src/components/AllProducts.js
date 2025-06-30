@@ -43,11 +43,11 @@ function AllProducts() {
         }
       </div>
 
-      <nav aria-label="Page navigation example">
+      {/* <nav aria-label="Page navigation example">
           <ul className="pagination">
             {links}
           </ul> 
-      </nav>
+      </nav> */}
 
 
     </section>

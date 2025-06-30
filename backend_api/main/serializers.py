@@ -150,7 +150,7 @@ class ProductRatingSerializer(serializers.ModelSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.ProductCategory
-        fields= ['id', 'title','details']
+        fields= ['id', 'title','details' , 'image']
         depth = 1
         
 class CategoryDetailSerializer(serializers.ModelSerializer):

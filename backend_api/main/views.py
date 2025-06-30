@@ -21,7 +21,24 @@ from django.conf import settings
 import os
 from django.utils.encoding import smart_str
 
+from rest_framework.pagination import PageNumberPagination
 
+class FourProductPagination(PageNumberPagination):
+    page_size = 4  # Only 4 items
+    page_size_query_param = 'limit'  # You can override from frontend
+    
+class HighPriceProductListView(generics.ListAPIView):
+    serializer_class = serializers.ProductListSerializer
+    pagination_class = FourProductPagination
+
+    def get_queryset(self):
+        return models.Product.objects.order_by('-price')[:4]
+    
+class LatestProductListView(generics.ListAPIView):
+    queryset = models.Product.objects.order_by('-id')  # Latest first
+    serializer_class = serializers.ProductListSerializer
+    pagination_class = FourProductPagination
+    
 class VendorSignupView(APIView):
     def post(self, request):
         serializer = serializers.VendorSignupSerializer(data=request.data)

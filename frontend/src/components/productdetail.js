@@ -186,73 +186,33 @@ function ProductDetail() {
 
       {/* Related Products */}
       {relatedProducts.length > 0 && (
-        <>
-          <h3 className="mt-5 mb-4 text-center text-light">
-            Related Products
-          </h3>
+  <>
+    <h3 className="mt-5 mb-4 text-center text-light">
+      Related Products
+    </h3>
 
-          <div
-            id="relatedproductCarousel"
-            className="carousel slide carousel-dark"
-            data-bs-ride="carousel"
-          >
-            <div className="carousel-indicators">
-              {relatedProducts.map((product, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  data-bs-target="#relatedproductCarousel"
-                  data-bs-slide-to={index}
-                  className={index === 0 ? "active" : ""}
-                  aria-current={index === 0 ? "true" : undefined}
-                  aria-label={`Slide ${index + 1}`}
-                  style={{ filter: "brightness(0.7)" }}
-                ></button>
-              ))}
-            </div>
-
-            <div className="carousel-inner">
-              {relatedProducts.map((product, index) => (
-                <div
-                  key={index}
-                  className={`carousel-item ${index === 0 ? "active" : ""}`}
-                >
-                  <div className="row justify-content-center">
-                    <SingleRelatedProduct product={product} />
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <button
-              className="carousel-control-prev"
-              type="button"
-              data-bs-target="#relatedproductCarousel"
-              data-bs-slide="prev"
-            >
-              <span
-                className="carousel-control-prev-icon"
-                aria-hidden="true"
-                style={{ filter: "invert(1)" }}
-              ></span>
-              <span className="visually-hidden">Previous</span>
-            </button>
-            <button
-              className="carousel-control-next"
-              type="button"
-              data-bs-target="#relatedproductCarousel"
-              data-bs-slide="next"
-            >
-              <span
-                className="carousel-control-next-icon"
-                aria-hidden="true"
-                style={{ filter: "invert(1)" }}
-              ></span>
-              <span className="visually-hidden">Next</span>
-            </button>
-          </div>
-        </>
-      )}
+    <div
+      className="d-flex overflow-auto px-2"
+      style={{
+        gap: "1rem",
+        scrollSnapType: "x mandatory",
+        WebkitOverflowScrolling: "touch",
+      }}
+    >
+      {relatedProducts.map((product, index) => (
+        <div
+          key={index}
+          style={{
+            flex: "0 0 auto",
+            scrollSnapAlign: "start",
+          }}
+        >
+          <SingleRelatedProduct product={product} />
+        </div>
+      ))}
+    </div>
+  </>
+)}
     </section>
   );
 }

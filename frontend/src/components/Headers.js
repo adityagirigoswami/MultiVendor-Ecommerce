@@ -18,14 +18,13 @@ function Header() {
       <div className="container-fluid mt-2 mb-2">
         {/* Brand Logo */}
         <Link to="/" className="navbar-brand text-white d-flex align-items-center gap-2">
-          <img
-            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
-            alt="Python"
-            width="40"
-            height="40"
-          />
-          <span className="fw-bold fs-3">Python Market Place</span>
-        </Link>
+            <span className="fw-bold fs-3 ms-2 text-gradient">
+              <i className="fa fa-code me-1 text-info"></i>
+              <span style={{ letterSpacing: "2px", fontFamily: "'Orbitron', sans-serif" }}>
+                SCRIPT <span className="text-warning">HUB</span>
+              </span>
+            </span>    
+          </Link>
 
         {/* Toggler */}
         <button className="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">

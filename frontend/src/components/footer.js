@@ -9,13 +9,12 @@ function Footer() {
       }}
     >
       <div className="col-md-6 d-flex align-items-center px-3">
-      <img
-            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
-            alt="Python"
-            width="40"
-            height="40"
-          />
-        <span className="fs-5 fw-semibold">Python Market Place</span>
+      <span className="fw-bold fs-3 ms-2 text-gradient">
+              <i className="fa fa-code me-1 text-info"></i>
+              <span style={{ letterSpacing: "-1px", fontFamily: "'Orbitron', sans-serif" }}>
+                SCRIPT <span className="text-warning">HUB</span>
+              </span>
+            </span>  
         <span className="ms-3 small text">© 2025 Company, Inc.</span>
       </div>
 

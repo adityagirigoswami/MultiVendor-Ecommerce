@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 
-function Singleproduct({ product }) {
+function SingleRelatedProduct({ product }) {
   return (
     <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
       <div
         className="card shadow-lg rounded-4 h-100 hover-effect"
         style={{
-          backgroundColor: "#1f2937", // Slightly lighter than #161b22 for contrast
-          color: "#e5e7eb", // Light text for better readability
+          backgroundColor: "#1f2937",
+          color: "#e5e7eb",
           transition: "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
         }}
       >
@@ -15,17 +15,27 @@ function Singleproduct({ product }) {
           to={`/product/${product.slug}/${product.id}`}
           className="text-decoration-none"
         >
-          <img
-            src={product.image}
-            alt={product.title}
-            className="card-img-top rounded-top-4"
+          <div
+            className="bg-white rounded-top-4"
             style={{
-              objectFit: "cover",
-              height: "220px",
-              transition: "0.3s ease-in-out",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.4)",
+              height: "200px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              overflow: "hidden",
             }}
-          />
+          >
+            <img
+              src={product.image}
+              alt={product.title}
+              className="img-fluid"
+              style={{
+                maxHeight: "180px",
+                objectFit: "contain",
+                padding: "10px",
+              }}
+            />
+          </div>
         </Link>
 
         <div className="card-body px-3 py-2 text-center">
@@ -46,10 +56,10 @@ function Singleproduct({ product }) {
             style={{
               fontSize: "0.85rem",
               lineHeight: "1.3",
-              color: "#9ca3af", // muted text with visibility
+              color: "#9ca3af",
             }}
           >
-            Best-in-class quality, perfect for daily use.
+            {product.detail || "High-quality script for developers"}
           </p>
 
           <div className="mb-2">
@@ -59,7 +69,7 @@ function Singleproduct({ product }) {
 
           <p
             className="fw-semibold mb-0"
-            style={{ fontSize: "1rem", color: "#facc15" }} // yellow price
+            style={{ fontSize: "1rem", color: "#facc15" }}
           >
             ₹ {product.price}
           </p>
@@ -67,7 +77,7 @@ function Singleproduct({ product }) {
 
         <div
           className="card-footer d-flex justify-content-center gap-3 pt-3"
-          style={{ backgroundColor: "#111827", borderColor: "#374151" }}
+          style={{ backgroundColor: "#1f2937", borderColor: "#374151" }}
         >
           <button
             title="Add to Cart"
@@ -90,4 +100,4 @@ function Singleproduct({ product }) {
   );
 }
 
-export default Singleproduct;
+export default SingleRelatedProduct;
