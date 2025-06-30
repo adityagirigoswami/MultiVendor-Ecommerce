@@ -10,7 +10,7 @@ function ProductDetail() {
   const [productImgs, setProductImgs] = useState([]);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const { product_slug, product_id } = useParams();
-  const { addToCart, removeFromCart, cartItems } = useContext(AuthContext);
+  const { addToCart, removeFromCart, cartItems , addToWishlist} = useContext(AuthContext);
   const isInCart = cartItems.some((item) => item.id === productData.id);
 
   useEffect(() => {
@@ -45,35 +45,52 @@ function ProductDetail() {
             className="carousel slide carousel-dark"
             data-bs-ride="carousel"
           >
-            <div className="carousel-indicators">
-              {productImgs.map((img, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  data-bs-target="#productdetailCarousel"
-                  data-bs-slide-to={index}
-                  className={index === 0 ? "active" : ""}
-                  aria-current={index === 0 ? "true" : undefined}
-                  aria-label={`Slide ${index + 1}`}
-                  style={{ filter: "brightness(0.7)" }}
-                ></button>
-              ))}
-            </div>
-            <div className="carousel-inner rounded shadow-lg">
-              {productImgs.map((img, index) => (
-                <div
-                  key={index}
-                  className={`carousel-item ${index === 0 ? "active" : ""}`}
-                >
+            {(productImgs && productImgs.length > 0) ? (
+  <>
+                <div className="carousel-indicators">
+                  {productImgs.map((img, index) => (
+                    <button
+                      key={index}
+                      type="button"
+                      data-bs-target="#productdetailCarousel"
+                      data-bs-slide-to={index}
+                      className={index === 0 ? "active" : ""}
+                      aria-current={index === 0 ? "true" : undefined}
+                      aria-label={`Slide ${index + 1}`}
+                      style={{ filter: "brightness(0.7)" }}
+                    ></button>
+                  ))}
+                </div>
+
+                <div className="carousel-inner rounded shadow-lg">
+                  {productImgs.map((img, index) => (
+                    <div
+                      key={index}
+                      className={`carousel-item ${index === 0 ? "active" : ""}`}
+                    >
+                      <img
+                        src={img.image}
+                        className="d-block w-100 rounded"
+                        alt={`Slide ${index + 1}`}
+                        style={{ maxHeight: "400px", objectFit: "contain" }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <div className="carousel-inner rounded shadow-lg">
+                <div className="carousel-item active">
                   <img
-                    src={img.image}
+                    src={productData.image}
                     className="d-block w-100 rounded"
-                    alt={`Slide ${index + 1}`}
+                    alt="Main Product"
                     style={{ maxHeight: "400px", objectFit: "contain" }}
                   />
                 </div>
-              ))}
-            </div>
+              </div>
+            )}
+
             <button
               className="carousel-control-prev"
               type="button"
@@ -141,7 +158,7 @@ function ProductDetail() {
             <button title="Buy Now" className="btn btn-success">
               <i className="fa-solid fa-bag-shopping me-1"></i> Buy Now
             </button>
-            <button title="Add to Wishlist" className="btn btn-danger">
+            <button title="Add to Wishlist" className="btn btn-danger" onClick={() => addToWishlist(productData.id)}>
               <i className="fa-solid fa-heart me-1"></i> Add to Wishlist
             </button>
           </div>

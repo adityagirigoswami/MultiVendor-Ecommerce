@@ -1,8 +1,44 @@
-// import logo from "../logo.svg";
-// import { Link } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
 import Sidebar from "./sidebar";
+import { AuthContext } from "../contexts/AuthContext";
 
 function Dashboard() {
+  const [stats, setStats] = useState({
+    total_orders: 0,
+    total_wishlist: 0,
+    total_addresses: 0,
+  });
+  const { refreshAccessToken, logout } = useContext(AuthContext);
+
+  useEffect(() => {
+    const fetchCustomerStats = async () => {
+      const access = await refreshAccessToken();
+      if (!access) {
+        logout();
+        return;
+      }
+
+      try {
+        const res = await fetch("http://127.0.0.1:8000/api/customer/dashboard-stats/", {
+          headers: {
+            Authorization: `Bearer ${access}`,
+          },
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          setStats(data);
+        } else {
+          console.error("Failed to fetch customer stats");
+        }
+      } catch (err) {
+        console.error("Error fetching customer stats:", err);
+      }
+    };
+
+    fetchCustomerStats();
+  }, []);
+
   return (
     <div className="container-fluid px-4 py-4" style={{ background: "linear-gradient(to right, #0f2027, #203a43, #2c5364)", minHeight: "100vh", color: "#fff" }}>
       <div className="row">
@@ -14,29 +50,20 @@ function Dashboard() {
           <h2 className="text-center mb-4" style={{ color: "#00e6e6" }}>🌌 Dashboard Overview</h2>
 
           <div className="row g-4">
-            <div className="col-md-4">
+            <div className="col-md-6">
               <div className="card shadow border-0" style={{ backgroundColor: "#1f2937", borderRadius: "15px" }}>
                 <div className="card-body text-center">
                   <h5 className="text-info">Total Orders</h5>
-                  <h3><a href="#" className="text-decoration-none text-white">123</a></h3>
+                  <h3><a href="#" className="text-decoration-none text-white">{stats.total_orders}</a></h3>
                 </div>
               </div>
             </div>
 
-            <div className="col-md-4">
+            <div className="col-md-6">
               <div className="card shadow border-0" style={{ backgroundColor: "#1f2937", borderRadius: "15px" }}>
                 <div className="card-body text-center">
                   <h5 className="text-warning">Total Wishlist</h5>
-                  <h3><a href="#" className="text-decoration-none text-white">56</a></h3>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-md-4">
-              <div className="card shadow border-0" style={{ backgroundColor: "#1f2937", borderRadius: "15px" }}>
-                <div className="card-body text-center">
-                  <h5 className="text-success">Total Addresses</h5>
-                  <h3><a href="#" className="text-decoration-none text-white">6</a></h3>
+                  <h3><a href="#" className="text-decoration-none text-white">{stats.total_wishlist}</a></h3>
                 </div>
               </div>
             </div>
@@ -49,4 +76,3 @@ function Dashboard() {
 }
 
 export default Dashboard;
-

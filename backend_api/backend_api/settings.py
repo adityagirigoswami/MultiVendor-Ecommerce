@@ -181,7 +181,7 @@ from datetime import timedelta
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),  # 🔄 increase from default 5 minutes
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),     # 🔄 increase from default 1 day
-    "ROTATE_REFRESH_TOKENS": True,                   # optional: rotate on refresh
+    "ROTATE_REFRESH_TOKENS": False,                   # optional: rotate on refresh
     "BLACKLIST_AFTER_ROTATION": True,                # optional: support logout
     "AUTH_HEADER_TYPES": ("Bearer",),
     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),

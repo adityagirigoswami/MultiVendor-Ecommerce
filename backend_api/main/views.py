@@ -22,7 +22,82 @@ import os
 from django.utils.encoding import smart_str
 
 
+class VendorSignupView(APIView):
+    def post(self, request):
+        serializer = serializers.VendorSignupSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': 'Vendor registered successfully'}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+# vendor's specific product view
 
+class VendorProductList(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        try:
+            vendor = models.Vendor.objects.get(user=request.user)
+        except models.Vendor.DoesNotExist:
+            return Response({"detail": "You are not a vendor."}, status=status.HTTP_403_FORBIDDEN)
+
+        products = models.Product.objects.filter(vendor=vendor)
+        serializer = serializers.ProductListSerializer(products, many=True)
+        return Response(serializer.data)
+    
+# vendor add product  
+class VendorAddProduct(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            vendor = models.Vendor.objects.get(user=request.user)
+        except models.Vendor.DoesNotExist:
+            return Response({'detail': 'You are not registered as a vendor.'}, status=403)
+        data = request.data.copy()
+        data['vendor'] = vendor.id
+        serializer = serializers.ProductListSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+
+# vendor dashboard
+
+class SellerDashboardStats(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        try:
+            vendor = models.Vendor.objects.get(user=request.user)
+        except:
+            return Response({"error": "Vendor profile not found."}, status=404)
+
+        total_products = models.Product.objects.filter(vendor=vendor).count()
+        total_orders = models.Order.objects.filter(order_items__product__vendor=vendor).distinct().count()
+        total_customers = models.Customer.objects.filter(
+            order__order_items__product__vendor=vendor
+        ).distinct().count()
+
+        return Response({
+            "total_products": total_products,
+            "total_orders": total_orders,
+            "total_customers": total_customers
+        })
+        
+class DeleteVendorProduct(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, pk):
+        try:
+            vendor = models.Vendor.objects.get(user=request.user)
+            product = models.Product.objects.get(pk=pk, vendor=vendor)
+            product.delete()
+            return Response({"message": "Product deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+        except models.Product.DoesNotExist:
+            return Response({"error": "Product not found or unauthorized"}, status=status.HTTP_404_NOT_FOUND)
+          
 class DownloadScriptView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -80,13 +155,59 @@ class CustomerProfileView(APIView):
             return Response(serializer.data)
         except models.Customer.DoesNotExist:
             return Response({"error": "Customer not found"}, status=404)
+        
+class CustomerDashboardStats(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        customer = models.Customer.objects.get(user=request.user)
+        orders = models.Order.objects.filter(customer=customer).count()
+        wishlist = models.Wishlist.objects.filter(customer=customer).count()
+
+        return Response({
+            "total_orders": orders,
+            "total_wishlist": wishlist,
+        })
             
-# Create your views here.
+# wishlist.
+class WishlistListCreateView(generics.ListCreateAPIView):
+    serializer_class = serializers.WishlistSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        customer = models.Customer.objects.get(user=self.request.user)
+        return models.Wishlist.objects.filter(customer=customer)
+
+    def perform_create(self, serializer):
+        customer = models.Customer.objects.get(user=self.request.user)
+        serializer.save(customer=customer)
+
+
+class WishlistDeleteView(generics.DestroyAPIView):
+    serializer_class = serializers.WishlistSerializer
+    permission_classes = [IsAuthenticated]
+    lookup_field = 'pk'
+
+    def get_queryset(self):
+        customer = models.Customer.objects.get(user=self.request.user)
+        return models.Wishlist.objects.filter(customer=customer)
+
+
 class VendorList(generics.ListCreateAPIView):
     queryset = models.Vendor.objects.all()
     serializer_class = serializers.VendorSerializer
     # permission_classes = [permissions.IsAuthenticated]
     
+class VendorProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        try:
+            vendor = models.Vendor.objects.get(user=request.user)
+            serializer = serializers.VendorSignupSerializer(vendor)
+            return Response(serializer.data)
+        except models.Vendor.DoesNotExist:
+            return Response({"error": "Not a vendor"}, status=403)    
     
 class VendorDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Vendor.objects.all()

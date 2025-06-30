@@ -10,7 +10,7 @@ function Login() {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext);
+  const { login, logout } = useContext(AuthContext); // ✅ use logout if role mismatch
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,6 +18,7 @@ function Login() {
     setLoading(true);
 
     try {
+      // Step 1: Get tokens
       const response = await axios.post("http://localhost:8000/api/login/", {
         username,
         password,
@@ -25,30 +26,38 @@ function Login() {
 
       const { access, refresh } = response.data;
 
-      // Save tokens in localStorage or context
-      localStorage.setItem("accessToken", access);
-      localStorage.setItem("refreshToken", refresh);
+      // Step 2: Verify if this is a customer
+      const profileRes = await axios.get("http://localhost:8000/api/customer/profile/", {
+        headers: { Authorization: `Bearer ${access}` },
+      });
+
+      // Step 3: Store tokens and update context
+      localStorage.setItem("access", access);
+      localStorage.setItem("refresh", refresh);
       localStorage.setItem("username", username);
 
-
-
-      // Optionally pass to context
       login(access, username);
-
       alert("Login Successful!");
+
       navigate("/customer/dashboard");
+
     } catch (error) {
       console.error("Login error", error);
-      setErrorMsg("Invalid username or password.");
+      if (error.response?.status === 403) {
+        setErrorMsg("❌ You are not registered as a customer.");
+        logout(); // ✅ clear localStorage
+      } else {
+        setErrorMsg("❌ Invalid username or password.");
+      }
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center "
-      style={{minHeight: "calc(90vh - 100px)", padding: "20px" }} >
-      <div className="card shadow-lg border-0 p-4" style={{backgroundColor: "#111827" , width: "100%", maxWidth: "400px" }}>
+    <div className="d-flex justify-content-center align-items-center"
+      style={{ minHeight: "calc(90vh - 100px)", padding: "20px" }} >
+      <div className="card shadow-lg border-0 p-4" style={{ backgroundColor: "#111827", width: "100%", maxWidth: "400px" }}>
         <h3 className="text-center mb-4 text-primary fw-bold">Welcome Back 👋</h3>
         <form onSubmit={handleSubmit}>
           {errorMsg && <p className="text-danger text-center">{errorMsg}</p>}
@@ -94,8 +103,9 @@ function Login() {
             </button>
           </div>
 
-          <p className="text-center  small text-white">
-            Don’t have an account? <a href="/customer/register" className="text-decoration-none">Register</a>
+          <p className="text-center small text-white">
+            Don’t have an account?{" "}
+            <a href="/customer/register" className="text-decoration-none">Register</a>
           </p>
         </form>
       </div>

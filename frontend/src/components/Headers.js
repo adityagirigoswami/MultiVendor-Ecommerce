@@ -4,7 +4,7 @@ import { AuthContext } from "./contexts/AuthContext";
 import { FaSearch, FaShoppingCart, FaUserCircle } from 'react-icons/fa';
 
 function Header() {
-  const { isLoggedIn, username, logout, cartItems } = useContext(AuthContext);
+  const { isLoggedIn,isVendorLoggedIn, username, logout, cartItems } = useContext(AuthContext);
 
   return (
     <nav
@@ -62,43 +62,51 @@ function Header() {
             </button>
           </form>
 
-          {/* Account Dropdown */}
-          <div className="dropdown me-3">
-            <button
-              className="btn btn-outline-light rounded-pill fw-semibold dropdown-toggle"
-              data-bs-toggle="dropdown"
-            >
-              <FaUserCircle className="me-1" /> {isLoggedIn ? username : 'Customer Panel'}
-            </button>
-            <ul className="dropdown-menu dropdown-menu-end shadow-sm">
-              {isLoggedIn ? (
-                <>
-                  <li><Link className="dropdown-item" to="/customer/dashboard">Dashboard</Link></li>
-                  <li><hr className="dropdown-divider" /></li>
-                  <li><Link className="dropdown-item text-danger" to="/customer/logout">Logout</Link></li>
-                </>
-              ) : (
-                <>
-                  <li><Link className="dropdown-item" to="/customer/register">Register</Link></li>
-                  <li><Link className="dropdown-item" to="/customer/login">Login</Link></li>
-                </>
-              )}
-            </ul>
-          </div>
+            {/* Customer Panel */}
+            <div className="dropdown me-3">
+              <button
+                className="btn btn-outline-light rounded-pill fw-semibold dropdown-toggle"
+                data-bs-toggle="dropdown"
+              >
+                <FaUserCircle className="me-1" /> 
+                {isLoggedIn && !isVendorLoggedIn ? username : 'Customer Panel'}
+              </button>
+              <ul className="dropdown-menu dropdown-menu-end shadow-sm">
+                {isLoggedIn && !isVendorLoggedIn ? (
+                  <>
+                    <li><Link className="dropdown-item" to="/customer/dashboard">Dashboard</Link></li>
+                    <li><hr className="dropdown-divider" /></li>
+                    <li><button className="dropdown-item text-danger" onClick={logout}>Logout</button></li>
+                  </>
+                ) : (
+                  <>
+                    <li><Link className="dropdown-item" to="/customer/register">Register</Link></li>
+                    <li><Link className="dropdown-item" to="/customer/login">Login</Link></li>
+                  </>
+                )}
+              </ul>
+            </div>
 
-          {/* Seller Panel */}
-          <div className="dropdown">
-            <button className="btn btn-outline-light rounded-pill fw-semibold dropdown-toggle" data-bs-toggle="dropdown">
-              Seller Panel
-            </button>
-            <ul className="dropdown-menu dropdown-menu-end shadow-sm">
-              <li><Link className="dropdown-item" to="/seller/register">Register</Link></li>
-              <li><Link className="dropdown-item" to="/seller/login">Login</Link></li>
-              <li><hr className="dropdown-divider" /></li>
-              <li><Link className="dropdown-item" to="/seller/dashboard">Dashboard</Link></li>
-              <li><Link className="dropdown-item text-danger" to="#">Logout</Link></li>
-            </ul>
-          </div>
+            {/* Seller Panel */}
+            <div className="dropdown">
+              <button className="btn btn-outline-light rounded-pill fw-semibold dropdown-toggle" data-bs-toggle="dropdown">
+                {isVendorLoggedIn ? `${username} (Vendor)` : "Seller Panel"}
+              </button>
+              <ul className="dropdown-menu dropdown-menu-end shadow-sm">
+                {isVendorLoggedIn ? (
+                  <>
+                    <li><Link className="dropdown-item" to="/seller/dashboard">Dashboard</Link></li>
+                    <li><hr className="dropdown-divider" /></li>
+                    <li><button className="dropdown-item text-danger" onClick={logout}>Logout</button></li>
+                  </>
+                ) : (
+                  <>
+                    <li><Link className="dropdown-item" to="/seller/register">Register</Link></li>
+                    <li><Link className="dropdown-item" to="/seller/login">Login</Link></li>
+                  </>
+                )}
+              </ul>
+            </div>
         </div>
       </div>
     </nav>

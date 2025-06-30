@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from slugify import slugify
+
 
 # vendor model
 
@@ -21,7 +23,7 @@ class ProductCategory(models.Model):
         return self.title
 
 # products
-
+   
 class Product(models.Model):
     category = models.ForeignKey(ProductCategory , on_delete=models.SET_NULL , null = True , related_name='category_product')
     vendor = models.ForeignKey(Vendor , on_delete=models.SET_NULL , null = True)
@@ -38,8 +40,20 @@ class Product(models.Model):
         return self.title
     
     def tag_list(self):
-        taglist=  self.tags.split(',')
-        return taglist
+        if self.tags:
+            return self.tags.split(',')
+        return []
+    
+    def save(self, *args, **kwargs):
+        if not self.slug and self.title:
+            base_slug = slugify(self.title)
+            unique_slug = base_slug
+            counter = 1
+            while Product.objects.filter(slug=unique_slug).exists():
+                unique_slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = unique_slug
+        super().save(*args, **kwargs)
 
 
 # customer model
@@ -59,7 +73,18 @@ class Order(models.Model):
     def __str__(self):
         return f"Order of {self.customer.user.username} | Order ID: {self.id}"
 
+# wishlist model 
+class Wishlist(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='wishlists')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    added_on = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        unique_together = ('customer', 'product')
+
+    def __str__(self):
+        return f"{self.customer.user.username} - {self.product.title}"
+    
 class OrderItem(models.Model):
     order = models.ForeignKey(Order , on_delete=models.CASCADE,related_name = 'order_items')
     product = models.ForeignKey(Product , on_delete=models.CASCADE)

@@ -30,6 +30,7 @@ urlpatterns = [
     path('customer/profile/', views.CustomerProfileView.as_view(), name='customer_profile'),
     # customer register 
     path('customer/register/', views.CustomerRegisterView.as_view(), name='customer-register'),
+    path("customer/dashboard-stats/", views.CustomerDashboardStats.as_view()),
 
 
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -40,12 +41,24 @@ urlpatterns = [
     path('vendors/' , views.VendorList.as_view()), 
     path('vendor/<int:pk>/' , views.VendorDetail.as_view()),
     
+    # vednor signup
+    path('vendor/signup/', views.VendorSignupView.as_view(), name='vendor_signup'),
+    path('vendor/profile/', views.VendorProfileView.as_view(), name='vendor_profile'),
+
+    path('vendor/products/', views.VendorProductList.as_view(), name='vendor_products'),
+
+    path('vendor/add-product/', views.VendorAddProduct.as_view(), name='vendor_products'),
+    path('vendor/dashboard-stats/', views.SellerDashboardStats.as_view(), name='vendor-stats'),
+    path('vendor/products/<int:pk>/delete/', views.DeleteVendorProduct.as_view(), name='vendor-product-delete'),
+
     # product
     path('products/' , views.ProductList.as_view()),
     path('product/<int:pk>/' , views.ProductDetail.as_view()),
     path('related-product/<int:pk>/' , views.RelatedProductList.as_view()),
     
-    
+    path('wishlist/', views.WishlistListCreateView.as_view(), name='wishlist'),
+    path('wishlist/<int:pk>/', views.WishlistDeleteView.as_view(), name='wishlist-delete'),
+
     # product categories
     path('categories/' , views.CategoryList.as_view()),
     path('category/<int:pk>/' , views.CategoryDetail.as_view()),

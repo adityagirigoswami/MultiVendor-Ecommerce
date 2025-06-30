@@ -3,6 +3,25 @@ from . import models
 from django.contrib.auth.models import User
 from rest_framework.exceptions import ValidationError
     
+# -> vendor signup
+class VendorSignupSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source='user.username')
+    email = serializers.EmailField(source='user.email')
+    password = serializers.CharField(write_only=True, source='user.password')
+
+    class Meta:
+        model = models.Vendor
+        fields = ['username', 'email', 'password', 'address']
+
+    def create(self, validated_data):
+        user_data = validated_data.pop('user')
+        user = User.objects.create_user(
+            username=user_data['username'],
+            email=user_data['email'],
+            password=user_data['password']
+        )
+        vendor = models.Vendor.objects.create(user=user, **validated_data)
+        return vendor
 # -> customer signup
 class CustomerRegisterSerializer(serializers.ModelSerializer):
     username = serializers.CharField(write_only=True)
@@ -91,7 +110,14 @@ class CustomerDetailSerializer(serializers.ModelSerializer):
         fields= ['id','user','username','mobile']
         # depth = 1
 
-        
+
+
+class WishlistSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Wishlist
+        fields = ['id', 'product', 'added_on']  # no need to expose customer here
+
+                
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.OrderItem
