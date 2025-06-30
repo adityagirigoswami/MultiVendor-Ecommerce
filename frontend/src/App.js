@@ -42,6 +42,7 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "./components/contexts/AuthContext";
 import { setAuthContext } from "./utils/secureFetch";
 
+import SearchResults from "./components/SearchResults";
 
 
 
@@ -92,6 +93,9 @@ function App() {
           <Route path='/seller/reports' element={<SellerReport />} />
           <Route path='/seller/profile' element={<SellerProfile />} />
           <Route path='/seller/change-password' element={<SellerChangePassword />} />
+
+          <Route path="/search" element={<SearchResults />} />
+
         </Routes>
       </div>
 

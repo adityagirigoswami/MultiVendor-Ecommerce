@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from . import serializers
-from rest_framework import generics , viewsets
+from rest_framework import generics , viewsets , filters
 from . import models
 from . import urls
 from rest_framework import status
@@ -235,6 +235,8 @@ class VendorDetail(generics.RetrieveUpdateDestroyAPIView):
 class ProductList(generics.ListCreateAPIView):
     queryset = models.Product.objects.all()
     serializer_class = serializers.ProductListSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["title", "detail"]
     # pagination_class= pagination.LimitOffsetPagination
     
     def get_queryset(self):

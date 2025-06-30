@@ -42,9 +42,9 @@ const AuthProvider = ({ children }) => {
     setCartItems([]);
 
     if (isVendor) {
-      navigate("/seller/login");
+      navigate("/");
     } else {
-      navigate("/customer/login");
+      navigate("/");
     }
   };
 
