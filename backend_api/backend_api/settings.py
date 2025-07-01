@@ -91,7 +91,7 @@ DATABASES = {
         'NAME': 'MultiVendor_ecom',
         'USER':'postgres',
         'PASSWORD':'2204',
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
@@ -167,6 +167,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "http://frontend:3000",
 ]
 
 from corsheaders.defaults import default_headers
