@@ -73,12 +73,14 @@ function Header() {
                 Cart&nbsp;({cartItems.length})
               </Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link text-white fw-semibold" to="/customer/wishlist">
-                <i className="fa-solid fa-heart me-1 text-danger" />
-                Wishlist
-              </Link>
-            </li>
+            {isLoggedIn && (
+                <li className="nav-item">
+                  <Link className="nav-link text-white fw-semibold" to="/customer/wishlist">
+                    <i className="fa-solid fa-heart me-1 text-danger" />
+                    Wishlist
+                  </Link>
+                </li>
+              )}
 
           </ul>
 

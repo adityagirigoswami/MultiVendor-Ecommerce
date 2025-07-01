@@ -168,6 +168,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://frontend:3000",
+    "http://13.201.50.130:3000",
+    "https://13.201.50.130:3000",
+    "http://shopsurf.site",
+    "https://shopsurf.site",
 ]
 
 from corsheaders.defaults import default_headers

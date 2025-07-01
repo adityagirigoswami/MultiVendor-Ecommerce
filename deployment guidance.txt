@@ -1,0 +1,38 @@
+check .env.production ---- change api url
+
+ssh -i "your-key.pem" ubuntu@your-ec2-public-ip
+
+
+# Update packages
+sudo apt update && sudo apt upgrade -y
+
+# Install Docker
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+
+# Install Docker Compose plugin (v2)
+sudo apt install docker-compose-plugin -y
+
+# Test Docker
+docker --version
+docker compose version
+
+git clone https://github.com/yourusername/multivendor-ecommerce.git
+cd multivendor-ecommerce
+
+docker compose up --build -d
+docker compose logs -f
+
+
+to dump data----------
+docker cp my_dump.sql multivendor-ecom-db-1:/my_dump.sql
+docker exec -it multivendor-ecom-db-1 bash
+psql -U postgres -d MultiVendor_ecom -f /my_dump.sql
+
+
+
+
+
+
+
+
