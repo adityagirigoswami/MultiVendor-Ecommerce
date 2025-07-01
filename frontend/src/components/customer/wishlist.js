@@ -6,10 +6,12 @@ import secureFetch, { setAuthContext } from "../../utils/secureFetch";
 
 
 function Wishlist() {
+
+  const BASE = process.env.REACT_APP_API_URL;
   const [wishlist, setWishlist] = useState([]);
   const [loading, setLoading] = useState(true);
   const authContext = useContext(AuthContext);
-  const baseUrl = "http://127.0.0.1:8000/api";
+  const baseUrl = `${BASE}/api`;
 
 
 

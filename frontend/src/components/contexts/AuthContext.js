@@ -5,6 +5,7 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
+  const BASE = process.env.REACT_APP_API_URL;
 
   const [isLoggedIn, setIsLoggedIn] = useState(() => !!localStorage.getItem("access"));
   const [isVendorLoggedIn, setIsVendorLoggedIn] = useState(() => localStorage.getItem("is_vendor") === "true");
@@ -74,7 +75,7 @@ const AuthProvider = ({ children }) => {
     }
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/token/refresh/", {
+      const response = await fetch(`${BASE}/api/token/refresh/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ refresh }),
@@ -98,7 +99,7 @@ const AuthProvider = ({ children }) => {
     const access = localStorage.getItem("access");
     if (!access) return;
   
-    await fetch("http://127.0.0.1:8000/api/wishlist/", {
+    await fetch(`${BASE}/api/wishlist/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -113,7 +114,7 @@ const AuthProvider = ({ children }) => {
     const access = localStorage.getItem("access");
     if (!access) return;
   
-    await fetch(`http://127.0.0.1:8000/api/wishlist/${wishlistId}/`, {
+    await fetch(`${BASE}/api/wishlist/${wishlistId}/`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${access}`,

@@ -1,8 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
 
 function Register() {
+  const BASE = process.env.REACT_APP_API_URL;
   const navigate = useNavigate(); // 👈 useNavigate hook
   const [formData, setFormData] = useState({
     first_name: "",
@@ -23,7 +25,7 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8000/api/customer/register/", formData);
+      await axios.post(`${BASE}/api/customer/register/`, formData);
       alert("Registration successful!");
       navigate("/customer/login"); // 👈 redirect to login page
     } catch (err) {

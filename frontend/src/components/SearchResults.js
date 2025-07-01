@@ -4,8 +4,8 @@ import { useLocation, Link } from "react-router-dom";
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
-
-const BACKEND = "http://127.0.0.1:8000";     // change if needed
+const BASE = process.env.REACT_APP_API_URL;
+const BACKEND = `${BASE}`;     // change if needed
 
 function SearchResults() {
   const query = useQuery().get("q") || "";

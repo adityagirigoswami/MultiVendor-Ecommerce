@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Singleproduct from './singleproduct';
-import logo from "../logo.svg";
+import Categories from "./categories";
 import "../App.css";
 
 function Home() {
-  const baseUrl = "http://127.0.0.1:8000/api";
+
+  const BASE = process.env.REACT_APP_API_URL;
+  const baseUrl = `${BASE}/api`;
 
   const [latestProducts, setLatestProducts] = useState([]);
   const [popularProducts, setPopularProducts] = useState([]);
@@ -65,21 +67,66 @@ function Home() {
             </Link>
           </h3>
           <div className="row mb-4">
-            {popularCategories.map(category => (
-              <div className="col-12 col-md-3 mb-4" key={category.id}>
-                <div className="card shadow-lg border-0 hover-effect" style={{ backgroundColor: '#161b22', color: '#c9d1d9' }}>
-                  <div style={{ backgroundColor: "white" }}>
-                    <img className="card-img-top p-2" src={category.image} alt={category.title} style={{ height: "180px", objectFit: "contain" }} />
+          {popularCategories.map((category) => (
+            <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 mt-4" key={category.id}>
+              <div
+                className="card shadow-lg rounded-4 h-100 hover-effect"
+                style={{
+                  backgroundColor: "#1f2937",
+                  color: "#e5e7eb",
+                  transition: "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
+                }}
+              >
+                <Link
+                  to={`/category/${category.title}/${category.id}`}
+                  className="text-decoration-none"
+                >
+                  <div
+                    className="bg-white rounded-top-4"
+                    style={{
+                      height: "200px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <img
+                      src={category.image}
+                      alt={category.title}
+                      className="img-fluid"
+                      style={{
+                        maxHeight: "180px",
+                        objectFit: "contain",
+                        padding: "10px",
+                      }}
+                    />
                   </div>
-                  <div className="card-body">
-                    <h4 className="card-title">{category.title}</h4>
-                    <div className="card-footer">
-                      Product Downloads: 598
-                    </div>
+
+                  <div className="card-body px-3 py-2 text-center">
+                    <h6
+                      className="fw-bold mb-1"
+                      style={{ fontSize: "1.1rem", color: "#ffffff" }}
+                    >
+                      {category.title}
+                    </h6>
+
+                    <p
+                      className="mb-1"
+                      style={{
+                        fontSize: "0.85rem",
+                        lineHeight: "1.3",
+                        color: "#9ca3af",
+                      }}
+                    >
+                      {category.details}
+                    </p>
+
                   </div>
-                </div>
+                </Link>
               </div>
-            ))}
+            </div>
+          ))}
           </div>
         </div>
 

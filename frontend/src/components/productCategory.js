@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 function ProductCategory() {
+  const BASE = process.env.REACT_APP_API_URL;
 
-  const baseUrl = 'http://127.0.0.1:8000/api';
+  const baseUrl = `${BASE}/api`;
   const [products,setProducts] = useState([]);
   const [totalResult,setTotalResult] = useState(0);
   const {category_slug,category_id} = useParams();

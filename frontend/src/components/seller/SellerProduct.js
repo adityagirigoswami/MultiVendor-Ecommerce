@@ -4,11 +4,12 @@ import SellerSidebar from "./SellerSidebar";
 import { AuthContext } from "../contexts/AuthContext";
 
 function SellerProduct() {
+  const BASE = process.env.REACT_APP_API_URL;
+
   const [products, setProducts] = useState([]);
   const { refreshAccessToken, logout } = useContext(AuthContext);
 
   // backend base — change if you deploy elsewhere
-  const BACKEND = "http://127.0.0.1:8000";
 
   useEffect(() => {
     (async () => {
@@ -16,7 +17,7 @@ function SellerProduct() {
       if (!access) return logout();
 
       try {
-        const res = await fetch(`${BACKEND}/api/vendor/products/`, {
+        const res = await fetch(`${BASE}/api/vendor/products/`, {
           headers: { Authorization: `Bearer ${access}` },
         });
         res.ok ? setProducts(await res.json()) : logout();
@@ -33,7 +34,7 @@ function SellerProduct() {
     if (!access) return;
 
     try {
-      const res = await fetch(`${BACKEND}/api/vendor/products/${id}/delete/`, {
+      const res = await fetch(`${BASE}/api/vendor/products/${id}/delete/`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${access}` },
       });
@@ -47,7 +48,7 @@ function SellerProduct() {
   };
 
   const getImageUrl = (imgPath) =>
-    imgPath.startsWith("http") ? imgPath : `${BACKEND}${imgPath}`;
+    imgPath.startsWith("http") ? imgPath : `${BASE}${imgPath}`;
 
   return (
     <div

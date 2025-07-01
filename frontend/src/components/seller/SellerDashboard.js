@@ -4,6 +4,7 @@ import SellerSidebar from "./SellerSidebar";
 import { AuthContext } from "../contexts/AuthContext";
 
 function SellerDashboard() {
+  const BASE = process.env.REACT_APP_API_URL;
   const [stats, setStats] = useState({
     total_products: 0,
     total_orders: 0,
@@ -18,7 +19,7 @@ function SellerDashboard() {
       if (!access) return;
 
       try {
-        const statsRes = await fetch("http://127.0.0.1:8000/api/vendor/dashboard-stats/", {
+        const statsRes = await fetch(`${BASE}/api/vendor/dashboard-stats/`, {
           headers: {
             Authorization: `Bearer ${access}`,
           },
@@ -29,7 +30,7 @@ function SellerDashboard() {
           setStats(statsData);
         }
 
-        const productsRes = await fetch("http://127.0.0.1:8000/api/vendor/products/", {
+        const productsRes = await fetch(`${BASE}/api/vendor/products/`, {
           headers: {
             Authorization: `Bearer ${access}`,
           },
@@ -54,7 +55,7 @@ function SellerDashboard() {
     if (!access) return;
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/vendor/products/${productId}/delete/`, {
+      const res = await fetch(`${BASE}/api/vendor/products/${productId}/delete/`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${access}`,

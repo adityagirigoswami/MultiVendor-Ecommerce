@@ -5,6 +5,8 @@ import { AuthContext } from "../contexts/AuthContext";
 import secureFetch, { setAuthContext } from "../../utils/secureFetch";
 
 function Orders() {
+  const BASE = process.env.REACT_APP_API_URL;
+
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -12,7 +14,7 @@ function Orders() {
 
   useEffect(() => {
     setAuthContext(authContext);
-    secureFetch("http://127.0.0.1:8000/api/customer/orders/")
+    secureFetch(`${BASE}/api/customer/orders/`)
       .then((res) => res.json())
       .then((data) => {
         setOrders(data);
@@ -26,7 +28,7 @@ function Orders() {
 
   const handleDownload = async (orderItemId) => {
     try {
-      const response = await secureFetch(`http://127.0.0.1:8000/api/download/${orderItemId}/`);
+      const response = await secureFetch(`${BASE}/api/download/${orderItemId}/`);
       if (!response.ok) {
         alert("Download failed");
         return;
@@ -86,7 +88,7 @@ function Orders() {
               <div className="card bg-dark text-light mb-5 shadow-lg border border-info" key={order.id}>
                 <div className="card-header border-bottom border-info d-flex justify-content-between align-items-center">
                   <strong>📦 Order #{order.id}</strong>
-                  <span className="small">{new Date(order.Order_time).toLocaleDateString()}</span>
+                  {/* <span className="small">{new Date(order.Order_time).toLocaleDateString()}</span> */}
                 </div>
 
                 <div className="card-body">

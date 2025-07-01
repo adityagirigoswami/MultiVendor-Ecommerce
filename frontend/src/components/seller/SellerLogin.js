@@ -3,6 +3,8 @@ import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 function SellerLogin() {
+  const BASE = process.env.REACT_APP_API_URL;
+
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [errorMsg, setErrorMsg] = useState("");
   const [loading, setLoading] = useState(false);
@@ -21,7 +23,7 @@ function SellerLogin() {
 
     try {
       // Step 1: Token login
-      const tokenRes = await fetch("http://127.0.0.1:8000/api/login/", {
+      const tokenRes = await fetch(`${BASE}/api/login/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -39,7 +41,7 @@ function SellerLogin() {
       localStorage.setItem("username", formData.username);
 
       // Step 2: Vendor role check
-      const profileRes = await fetch("http://127.0.0.1:8000/api/vendor/profile/", {
+      const profileRes = await fetch(`${BASE}/api/vendor/profile/`, {
         headers: {
           Authorization: `Bearer ${tokenData.access}`,
         },

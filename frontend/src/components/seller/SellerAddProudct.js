@@ -4,6 +4,8 @@ import SellerSidebar from "./SellerSidebar";
 import { AuthContext } from "../contexts/AuthContext";
 
 function SellerAddProducts() {
+  
+  const BASE = process.env.REACT_APP_API_URL;
   const [formData, setFormData] = useState({
     title: "",
     price: "",
@@ -22,7 +24,7 @@ function SellerAddProducts() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/categories/")
+    fetch(`${BASE}/api/categories/`)
       .then((res) => res.json())
       .then((data) => setCategories(data.results || []))
       .catch((err) => {
@@ -49,7 +51,7 @@ function SellerAddProducts() {
       if (image) productForm.append("image", image);
       if (file) productForm.append("file", file);
 
-      const res = await fetch("http://127.0.0.1:8000/api/vendor/add-product/", {
+      const res = await fetch(`${BASE}/api/vendor/add-product/`, {
         method: "POST",
         headers: { Authorization: `Bearer ${access}` },
         body: productForm,

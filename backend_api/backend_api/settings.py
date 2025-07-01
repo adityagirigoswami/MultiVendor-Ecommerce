@@ -91,7 +91,7 @@ DATABASES = {
         'NAME': 'MultiVendor_ecom',
         'USER':'postgres',
         'PASSWORD':'2204',
-        'HOST': 'db',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }

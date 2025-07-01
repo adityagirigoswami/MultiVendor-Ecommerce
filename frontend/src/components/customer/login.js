@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 
 function Login() {
+  const BASE = process.env.REACT_APP_API_URL;
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -19,7 +21,7 @@ function Login() {
 
     try {
       // Step 1: Get tokens
-      const response = await axios.post("http://localhost:8000/api/login/", {
+      const response = await axios.post(`${BASE}/api/login/`, {
         username,
         password,
       });
@@ -27,7 +29,7 @@ function Login() {
       const { access, refresh } = response.data;
 
       // Step 2: Verify if this is a customer
-      const profileRes = await axios.get("http://localhost:8000/api/customer/profile/", {
+      const profileRes = await axios.get(`${BASE}/api/customer/profile/`, {
         headers: { Authorization: `Bearer ${access}` },
       });
 

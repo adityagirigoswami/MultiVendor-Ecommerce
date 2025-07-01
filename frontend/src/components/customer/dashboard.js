@@ -3,6 +3,8 @@ import Sidebar from "./sidebar";
 import { AuthContext } from "../contexts/AuthContext";
 
 function Dashboard() {
+  const BASE = process.env.REACT_APP_API_URL;
+
   const [stats, setStats] = useState({
     total_orders: 0,
     total_wishlist: 0,
@@ -19,7 +21,7 @@ function Dashboard() {
       }
 
       try {
-        const res = await fetch("http://127.0.0.1:8000/api/customer/dashboard-stats/", {
+        const res = await fetch(`${BASE}/api/customer/dashboard-stats/`, {
           headers: {
             Authorization: `Bearer ${access}`,
           },

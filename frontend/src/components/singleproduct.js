@@ -7,7 +7,6 @@ function SingleRelatedProduct({ product }) {
     isLoggedIn,
     addToCart,
     addToWishlist,
-    removeFromWishlist,
   } = useContext(AuthContext);
 
   const handleAddToCart = () => {

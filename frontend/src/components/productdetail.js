@@ -5,7 +5,8 @@ import SingleRelatedProduct from "./singleRelatedProduct";
 import { AuthContext } from "./contexts/AuthContext";
 
 function ProductDetail() {
-  const baseUrl = "http://127.0.0.1:8000/api";
+  const BASE = process.env.REACT_APP_API_URL;
+  const baseUrl = `${BASE}/api`;
   const [productData, setProductData] = useState({});
   const [productImgs, setProductImgs] = useState([]);
   const [relatedProducts, setRelatedProducts] = useState([]);

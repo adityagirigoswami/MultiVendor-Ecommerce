@@ -4,14 +4,16 @@ import { AuthContext } from "./contexts/AuthContext";
 import secureFetch from "../utils/secureFetch";
 
 function Checkout() {
+  const BASE = process.env.REACT_APP_API_URL;
+
   const { cartItems, removeFromCart, isLoggedIn, clearCart } = useContext(AuthContext);
   const navigate = useNavigate();
-
+  
   const totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
 
   const handlePlaceOrder = async () => {
     try {
-      const orderRes = await secureFetch("http://127.0.0.1:8000/api/razorpay/order/", {
+      const orderRes = await secureFetch(`${BASE}/api/razorpay/order/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ amount: totalPrice }),
@@ -30,7 +32,7 @@ function Checkout() {
           alert("✅ Payment Successful!");
 
           try {
-            const storeOrderRes = await secureFetch("http://127.0.0.1:8000/api/place-order/", {
+            const storeOrderRes = await secureFetch(`${BASE}/api/place-order/`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
