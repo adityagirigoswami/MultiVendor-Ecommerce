@@ -168,8 +168,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://frontend:3000",
-    "http://15.206.89.94:3000",
-    "https://15.206.89.94:3000",
+    "http://13.233.194.64:3000",
+    "https://13.233.194.64:3000",
     "http://shopsurf.site",
     "https://shopsurf.site",
 ]
