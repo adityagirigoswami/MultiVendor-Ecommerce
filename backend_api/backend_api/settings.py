@@ -16,8 +16,8 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-RAZORPAY_KEY_ID = "rzp_test_N8RajnGbmmpb0B"
-RAZORPAY_KEY_SECRET = "DSHqQEOeQklh99nj5IiBOVAu"
+RAZORPAY_KEY_ID = "your_razorpay_key_id"
+RAZORPAY_KEY_SECRET = "your_razorpay_key_secret"
 
 
 
